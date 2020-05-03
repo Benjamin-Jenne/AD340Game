@@ -1,15 +1,12 @@
 package com.example.mapgame;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+public class MapActivity extends AppCompatActivity {
+    private static final String TAG = MapActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +51,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "onDestroy()");
-    }
-
-
-    public void goToMapActivity(View view) {
-        Intent intent = new Intent(MainActivity.this, MapActivity.class);
-
-        startActivity(intent);
     }
 }
