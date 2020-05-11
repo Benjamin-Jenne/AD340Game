@@ -14,4 +14,5 @@
     <string name="down">\u2193</string>
     <string name="up">\u2191</string>
     <string name="attack">\u2694</string>
+    <string name="pickup">pickup</string>
 </resources>

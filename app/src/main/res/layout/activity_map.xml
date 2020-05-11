@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:padding="0dp"
         android:text="@string/left"
-        android:textSize="50dp"
+        android:textSize="45dp"
         android:layout_above="@id/buttonDown" />
 
     <Button
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:padding="0dp"
         android:text="@string/right"
-        android:textSize="50dp"
+        android:textSize="45dp"
         android:layout_toEndOf="@id/buttonDown"
         android:layout_above="@id/buttonDown"/>
 
@@ -33,7 +33,7 @@
         android:padding="0dp"
         android:text="@string/down"
         android:layout_alignParentBottom="true"
-        android:textSize="50dp"
+        android:textSize="45dp"
         android:layout_toEndOf="@id/buttonLeft"/>
 
     <Button
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:padding="0dp"
         android:text="@string/up"
-        android:textSize="50dp"
+        android:textSize="45dp"
         android:layout_toEndOf="@id/buttonLeft"
         android:layout_above="@id/buttonLeft"
 />
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:padding="0dp"
         android:text="@string/attack"
-        android:textSize="50dp"
+        android:textSize="45dp"
         android:layout_above="@id/buttonDown"
         android:layout_alignParentEnd="true"
         />
