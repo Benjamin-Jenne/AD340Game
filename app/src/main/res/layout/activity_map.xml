@@ -1,18 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     tools:context=".MapActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/buttonLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Map Here"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:padding="0dp"
+        android:text="@string/left"
+        android:textSize="45dp"
+        android:layout_above="@id/buttonDown" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/buttonRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="0dp"
+        android:text="@string/right"
+        android:textSize="45dp"
+        android:layout_toEndOf="@id/buttonDown"
+        android:layout_above="@id/buttonDown"/>
+
+    <Button
+        android:id="@+id/buttonDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="0dp"
+        android:text="@string/down"
+        android:layout_alignParentBottom="true"
+        android:textSize="45dp"
+        android:layout_toEndOf="@id/buttonLeft"/>
+
+    <Button
+        android:id="@+id/buttonUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="0dp"
+        android:text="@string/up"
+        android:textSize="45dp"
+        android:layout_toEndOf="@id/buttonLeft"
+        android:layout_above="@id/buttonLeft"
+/>
+    <Button
+        android:id="@+id/buttonAttack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="0dp"
+        android:text="@string/attack"
+        android:textSize="45dp"
+        android:layout_above="@id/buttonDown"
+        android:layout_alignParentEnd="true"
+        />
+
+</RelativeLayout>
