@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">MapGame</string>
-    <string name="start">start</string>
+    <string name="game_title">Dungeon Run</string>
+    <string name="game_description">A fun game where a player has to navigate some dungeons and fight monsters</string>
+    <string name="game_instructions">Game instructions
+        \n 1) Move around with arrow keys
+        \n 2) Collect Resources
+        \n 3) Fight Monsters
+    </string>
+    <string name="play">play</string>
+    <string name="authors">created by David Prismantas, Benjamin Jenne, Max Anderson, and Jack Boyd</string>
 </resources>
