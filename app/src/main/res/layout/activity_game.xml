@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.mapgame.GameFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/fragment_game"/>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
-    tools:context=".MapActivity">
+    tools:context=".GameActivity">
 
     <Button
         android:id="@+id/buttonLeft"
@@ -58,3 +70,4 @@
         />
 
 </RelativeLayout>
+</FrameLayout>

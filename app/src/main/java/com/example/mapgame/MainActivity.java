@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void goToMapActivity(View view) {
-        Intent intent = new Intent(MainActivity.this, MapActivity.class);
+        Intent intent = new Intent(MainActivity.this, GameActivity.class);
 
         startActivity(intent);
     }
