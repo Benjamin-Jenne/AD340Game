@@ -11,6 +11,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = GameActivity.class.getSimpleName();
 
     private Button button_attack;
+    private Button button_left;
+    private Button button_right;
+    private Button button_down;
+    private Button button_up;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +22,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_game);
 
         button_attack = findViewById(R.id.buttonAttack);
+        button_left = findViewById(R.id.buttonLeft);
+        button_right = findViewById(R.id.buttonRight);
+        button_down = findViewById(R.id.buttonDown);
+        button_up = findViewById(R.id.buttonUp);
+
         button_attack.setOnClickListener(this);
+        button_left.setOnClickListener(this);
+        button_right.setOnClickListener(this);
+        button_down.setOnClickListener(this);
+        button_up.setOnClickListener(this);
 
         Log.i(TAG, "onCreate()");
     }
@@ -26,6 +39,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v){
         if(v.getId() == R.id.buttonAttack){
             Log.i(TAG, "Attack Button Was Pressed");
+        }
+        if(v.getId() == R.id.buttonLeft){
+            Log.i(TAG, "Left Button Was Pressed");
+        }
+        if(v.getId() == R.id.buttonRight){
+            Log.i(TAG, "Right Button Was Pressed");
+        }
+        if(v.getId() == R.id.buttonDown){
+            Log.i(TAG, "Down Button Was Pressed");
+        }
+        if(v.getId() == R.id.buttonUp){
+            Log.i(TAG, "Up Button Was Pressed");
         }
     }
 
