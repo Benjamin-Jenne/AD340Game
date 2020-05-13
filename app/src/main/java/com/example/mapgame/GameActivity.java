@@ -2,6 +2,7 @@ package com.example.mapgame;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -28,32 +29,63 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         button_up = findViewById(R.id.buttonUp);
 
         button_attack.setOnClickListener(this);
-        button_left.setOnClickListener(this);
-        button_right.setOnClickListener(this);
-        button_down.setOnClickListener(this);
-        button_up.setOnClickListener(this);
+
+        //Referenced https://stackoverflow.com/questions/4597513/onpress-onrelease-in-android
+        button_left.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    Log.i(TAG, "Button Left Pressed Down");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    Log.i(TAG, "Button Left Released");
+                }
+                return true;
+            }
+        });
+        button_right.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    Log.i(TAG, "Button Right Pressed Down");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    Log.i(TAG, "Button Right Released");
+                }
+                return true;
+            }
+        });
+        button_down.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    Log.i(TAG, "Button Down Pressed Down");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    Log.i(TAG, "Button Down Released");
+                }
+                return true;
+        }});
+        button_up.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    Log.i(TAG, "Button Up Pressed Down");
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    Log.i(TAG, "Button Up Released");
+                }
+                return true;
+            }});
 
         Log.i(TAG, "onCreate()");
     }
     @Override
     public void onClick(View v){
         if(v.getId() == R.id.buttonAttack){
-            Log.i(TAG, "Attack Button Was Pressed");
-        }
-        if(v.getId() == R.id.buttonLeft){
-            Log.i(TAG, "Left Button Was Pressed");
-        }
-        if(v.getId() == R.id.buttonRight){
-            Log.i(TAG, "Right Button Was Pressed");
-        }
-        if(v.getId() == R.id.buttonDown){
-            Log.i(TAG, "Down Button Was Pressed");
-        }
-        if(v.getId() == R.id.buttonUp){
-            Log.i(TAG, "Up Button Was Pressed");
+            Log.i(TAG, "Attack Button Was Clicked");
         }
     }
-
     @Override
     protected void onRestart() {
         super.onRestart();
