@@ -57,13 +57,19 @@ class GameView extends SurfaceView implements Runnable {
     }
     @Override
     public void run() {
+        Paint myPaint = new Paint();
+        myPaint.setColor(Color.rgb(0, 0, 0));
+        int x = 100;
+        int y = 100;
         while(running == true){
             if(!surfaceHolder.getSurface().isValid()){
                 continue;
             }
+            x = x + 1;
+            y = y + 1;
             Canvas canvas = surfaceHolder.lockCanvas();
             canvas.drawRGB(255,0,0);
-
+            canvas.drawRect(x,y,x+100,y+100, myPaint);
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
