@@ -1,9 +1,11 @@
 package com.example.mapgame;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
@@ -37,44 +39,5 @@ public class GameFragment extends Fragment {
     }
     public void setButtonEvent(GameActivity.ButtonEvent buttonEvent){
         this.buttonEvent = buttonEvent;
-    }
-}
-//Game Loop credit:
-//Zechner, Mario. Beginning Android Games . Apress. Kindle Edition.
-class GameView extends SurfaceView implements Runnable {
-    Thread gameThread = null;
-    SurfaceHolder surfaceHolder;
-    volatile boolean running = false;
-
-    public GameView(Context context){
-        super(context);
-        surfaceHolder = getHolder();
-    }
-    protected void resume(){
-        running = true;
-        gameThread = new Thread(this);
-        gameThread.start();
-    }
-    @Override
-    public void run() {
-        while(running == true){
-            if(!surfaceHolder.getSurface().isValid()){
-                continue;
-            }
-            Canvas canvas = surfaceHolder.lockCanvas();
-            canvas.drawRGB(255,0,0);
-
-            surfaceHolder.unlockCanvasAndPost(canvas);
-        }
-    }
-    public void pause(){
-        running = false;
-        while(true){
-            try{
-                gameThread.join();
-                return;
-            } catch (InterruptedException e){
-            }
-        }
     }
 }
