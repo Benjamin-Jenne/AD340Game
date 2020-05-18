@@ -2,6 +2,8 @@ package com.example.mapgame;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
@@ -23,6 +25,16 @@ public class GameFragment extends Fragment {
         gameView = new GameView(getActivity());
         return gameView;
     }
+    @Override
+    public void onResume(){
+        super.onResume();
+        gameView.resume();
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        gameView.pause();
+    }
     public void setButtonEvent(GameActivity.ButtonEvent buttonEvent){
         this.buttonEvent = buttonEvent;
     }
@@ -38,7 +50,7 @@ class GameView extends SurfaceView implements Runnable {
         super(context);
         surfaceHolder = getHolder();
     }
-    public void resume(){
+    protected void resume(){
         running = true;
         gameThread = new Thread(this);
         gameThread.start();
@@ -51,6 +63,7 @@ class GameView extends SurfaceView implements Runnable {
             }
             Canvas canvas = surfaceHolder.lockCanvas();
             canvas.drawRGB(255,0,0);
+
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
