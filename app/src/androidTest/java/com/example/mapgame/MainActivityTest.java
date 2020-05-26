@@ -54,9 +54,10 @@ public class MainActivityTest {
                 .check(matches(withText(R.string.game_instructions)));
     }
     @Test
-    public void testClickPlay(){
+    public static void testClickPlay(){
         onView(withId(R.id.buttonPlay)).perform(click());
     }
+
     public void hasAuthor(){
         onView(withId(R.id.author))
                 .check(matches(withText(R.string.authors)));

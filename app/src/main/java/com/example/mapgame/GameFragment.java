@@ -5,7 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -19,6 +21,7 @@ import androidx.fragment.app.Fragment;
 public class GameFragment extends Fragment {
     private GameActivity.ButtonEvent buttonEvent;
     GameView gameView;
+    private static final String TAG = GameFragment.class.getSimpleName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState){
@@ -35,8 +38,10 @@ public class GameFragment extends Fragment {
         super.onPause();
         gameView.pause();
     }
+
     public void setButtonEvent(GameActivity.ButtonEvent buttonEvent){
         this.buttonEvent = buttonEvent;
+        Log.i(TAG, "inside game frag "+ buttonEvent);
     }
 }
 //Game Loop credit:
@@ -46,27 +51,49 @@ class GameView extends SurfaceView implements Runnable {
     SurfaceHolder surfaceHolder;
     volatile boolean running = false;
 
+    int x = 100;
+    int y = 100;
+    Paint myPaint = new Paint();
+
     public GameView(Context context){
         super(context);
         surfaceHolder = getHolder();
+
+        myPaint.setColor(Color.rgb(0, 0, 0));
+
     }
     protected void resume(){
         running = true;
         gameThread = new Thread(this);
         gameThread.start();
     }
+//    @Override
+//    public void run() {
+//        Paint myPaint = new Paint();
+//        myPaint.setColor(Color.rgb(0, 0, 0));
+//        int x = 100;
+//        int y = 100;
+//        while(running == true){
+//            if(!surfaceHolder.getSurface().isValid()){
+//                continue;
+//            }
+//            x = x + 1;
+//            y = y + 1;
+//            Canvas canvas = surfaceHolder.lockCanvas();
+//            canvas.drawRGB(255,0,0);
+//            canvas.drawRect(x,y,x+100,y+100, myPaint);
+//            surfaceHolder.unlockCanvasAndPost(canvas);
+//        }
+//    }
     @Override
     public void run() {
-        Paint myPaint = new Paint();
-        myPaint.setColor(Color.rgb(0, 0, 0));
-        int x = 100;
-        int y = 100;
+
         while(running == true){
             if(!surfaceHolder.getSurface().isValid()){
                 continue;
             }
-            x = x + 1;
-            y = y + 1;
+//            x = x + 1;
+//            y = y + 1;
             Canvas canvas = surfaceHolder.lockCanvas();
             canvas.drawRGB(255,0,0);
             canvas.drawRect(x,y,x+100,y+100, myPaint);
@@ -82,5 +109,14 @@ class GameView extends SurfaceView implements Runnable {
             } catch (InterruptedException e){
             }
         }
+    }
+
+    //Change position of square
+    public void setX(int increment) {
+        this.x += increment;
+    }
+
+    public void setY(int increment) {
+        this.y += increment;
     }
 }
