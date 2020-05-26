@@ -1,5 +1,6 @@
 package com.example.mapgame;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -11,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener{
+
     private static final String TAG = GameActivity.class.getSimpleName();
 
     private Button button_attack;
@@ -20,6 +22,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button button_up;
 
     private GameFragment gameFragment;
+
+    private int move = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
                     Log.i(TAG, "Button Left Pressed Down");
+                    gameFragment.gameView.setX(-move);
                     gameFragment.setButtonEvent( new ButtonEvent("Button Left Pressed Down"));
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
@@ -61,6 +66,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
                     Log.i(TAG, "Button Right Pressed Down");
+                    gameFragment.gameView.setX(move);
                     gameFragment.setButtonEvent( new ButtonEvent("Button Right Pressed Down"));
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
@@ -75,6 +81,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
                     Log.i(TAG, "Button Down Pressed Down");
+                    gameFragment.gameView.setY(move);
                     gameFragment.setButtonEvent( new ButtonEvent("Button Down Pressed Down"));
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
@@ -88,6 +95,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
                     Log.i(TAG, "Button Up Pressed Down");
+                    gameFragment.gameView.setY(-move);
                     gameFragment.setButtonEvent( new ButtonEvent("Button Up Pressed Down"));
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
@@ -100,7 +108,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.buttonAttack){
+            int num = (int) (Math.random()*255);
+
             Log.i(TAG, "Attack Button Was Clicked");
+            gameFragment.gameView.myPaint.setColor(Color.rgb(0, 0, num));
             gameFragment.setButtonEvent( new ButtonEvent("Attack Button Clicked"));
         }
     }
