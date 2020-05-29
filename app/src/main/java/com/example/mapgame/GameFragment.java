@@ -50,10 +50,15 @@ class GameView extends SurfaceView implements Runnable {
     Thread gameThread = null;
     SurfaceHolder surfaceHolder;
     volatile boolean running = false;
-
     int x = 100;
     int y = 100;
     Paint myPaint = new Paint();
+
+    //Buttons
+    boolean button_up_pressed = false;
+    boolean button_down_pressed = false;
+    boolean button_left_pressed = false;
+    boolean button_right_pressed = false;
 
     public GameView(Context context){
         super(context);
@@ -67,36 +72,27 @@ class GameView extends SurfaceView implements Runnable {
         gameThread = new Thread(this);
         gameThread.start();
     }
-//    @Override
-//    public void run() {
-//        Paint myPaint = new Paint();
-//        myPaint.setColor(Color.rgb(0, 0, 0));
-//        int x = 100;
-//        int y = 100;
-//        while(running == true){
-//            if(!surfaceHolder.getSurface().isValid()){
-//                continue;
-//            }
-//            x = x + 1;
-//            y = y + 1;
-//            Canvas canvas = surfaceHolder.lockCanvas();
-//            canvas.drawRGB(255,0,0);
-//            canvas.drawRect(x,y,x+100,y+100, myPaint);
-//            surfaceHolder.unlockCanvasAndPost(canvas);
-//        }
-//    }
     @Override
     public void run() {
-
         while(running == true){
             if(!surfaceHolder.getSurface().isValid()){
                 continue;
             }
-//            x = x + 1;
-//            y = y + 1;
             Canvas canvas = surfaceHolder.lockCanvas();
             canvas.drawRGB(255,0,0);
             canvas.drawRect(x,y,x+100,y+100, myPaint);
+            if(button_up_pressed == true){
+                y = y-1;
+            }
+            if(button_down_pressed == true){
+                y = y+1;
+            }
+            if(button_left_pressed == true){
+                x = x-1;
+            }
+            if(button_right_pressed == true){
+                x = x+1;
+            }
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
@@ -109,14 +105,5 @@ class GameView extends SurfaceView implements Runnable {
             } catch (InterruptedException e){
             }
         }
-    }
-
-    //Change position of square
-    public void setX(int increment) {
-        this.x += increment;
-    }
-
-    public void setY(int increment) {
-        this.y += increment;
     }
 }
