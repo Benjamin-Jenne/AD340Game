@@ -1,6 +1,8 @@
 package com.example.mapgame;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -54,6 +56,14 @@ class GameView extends SurfaceView implements Runnable {
     int y = 100;
     Paint myPaint = new Paint();
 
+    //Bitmaps
+    Bitmap burns_right = BitmapFactory.decodeResource(getResources(), R.drawable.burnsm_right);
+    Bitmap burns_left = BitmapFactory.decodeResource(getResources(), R.drawable.burnsm_left);
+    Bitmap burns_forward = BitmapFactory.decodeResource(getResources(), R.drawable.burnsm_forward);
+
+    //Last direction facing
+    String last_direction_facing = "right";
+
     //Buttons
     boolean button_up_pressed = false;
     boolean button_down_pressed = false;
@@ -79,19 +89,40 @@ class GameView extends SurfaceView implements Runnable {
                 continue;
             }
             Canvas canvas = surfaceHolder.lockCanvas();
-            canvas.drawRGB(255,0,0);
-            canvas.drawRect(x,y,x+100,y+100, myPaint);
+            canvas.drawRGB(136,192,208);
             if(button_up_pressed == true){
+                canvas.drawBitmap(burns_forward, x, y,null);
+                last_direction_facing = "up";
                 y = y-1;
             }
             if(button_down_pressed == true){
+                canvas.drawBitmap(burns_forward, x, y,null);
+                last_direction_facing = "down";
                 y = y+1;
             }
             if(button_left_pressed == true){
+                canvas.drawBitmap(burns_left, x, y,null);
+                last_direction_facing = "left";
                 x = x-1;
             }
             if(button_right_pressed == true){
+                canvas.drawBitmap(burns_right, x, y,null);
+                last_direction_facing = "right";
                 x = x+1;
+            }
+            else{
+                if(last_direction_facing == "up"){
+                    canvas.drawBitmap(burns_forward, x, y,null);
+                }
+                if(last_direction_facing == "down"){
+                    canvas.drawBitmap(burns_forward, x, y,null);
+                }
+                if(last_direction_facing == "left"){
+                    canvas.drawBitmap(burns_left, x, y,null);
+                }
+                if(last_direction_facing == "right"){
+                    canvas.drawBitmap(burns_right, x, y,null);
+                }
             }
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
