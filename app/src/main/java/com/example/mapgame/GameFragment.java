@@ -56,6 +56,13 @@ class GameView extends SurfaceView implements Runnable {
     int y = 100;
     Paint myPaint = new Paint();
 
+    //Time & frames per second
+    long current_time;
+    long previous_time = 0;
+    long delta_time;
+    long frames_per_second;
+    int screen_update_count = 0;
+
     //Bitmaps
     Bitmap burns_right = BitmapFactory.decodeResource(getResources(), R.drawable.burnsm_right);
     Bitmap burns_left = BitmapFactory.decodeResource(getResources(), R.drawable.burnsm_left);
@@ -124,6 +131,15 @@ class GameView extends SurfaceView implements Runnable {
                     canvas.drawBitmap(burns_right, x, y,null);
                 }
             }
+            current_time = System.currentTimeMillis();
+            delta_time = previous_time - current_time;
+            previous_time = current_time;
+            if(screen_update_count == 100){
+                double dTime = (double) delta_time;
+                Log.i("frames per second", Double.toString(-1.0*(1.0 / (dTime / 1000.0))));
+                screen_update_count = 0;
+            }
+            screen_update_count += 1;
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
