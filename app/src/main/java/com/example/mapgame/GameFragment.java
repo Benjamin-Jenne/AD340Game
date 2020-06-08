@@ -64,9 +64,24 @@ class GameView extends SurfaceView implements Runnable {
     int screen_update_count = 0;
 
     //Bitmaps
-    Bitmap burns_right = BitmapFactory.decodeResource(getResources(), R.drawable.burnsm_right);
-    Bitmap burns_left = BitmapFactory.decodeResource(getResources(), R.drawable.burnsm_left);
-    Bitmap burns_forward = BitmapFactory.decodeResource(getResources(), R.drawable.burnsm_forward);
+    Bitmap HomerRight = BitmapFactory.decodeResource(getResources(), R.drawable.homerright);
+    Bitmap HomerRightWalk1 = BitmapFactory.decodeResource(getResources(), R.drawable.homerrightwalk1);
+    Bitmap HomerRightWalk2 = BitmapFactory.decodeResource(getResources(), R.drawable.homerrightwalk2);
+    Bitmap HomerRightWalk3 = BitmapFactory.decodeResource(getResources(), R.drawable.homerrightwalk3);
+    Bitmap HomerRightWalk4 = BitmapFactory.decodeResource(getResources(), R.drawable.homerrightwalk4);
+    Bitmap HomerRightWalk5 = BitmapFactory.decodeResource(getResources(), R.drawable.homerrightwalk5);
+    Bitmap HomerRightWalk6 = BitmapFactory.decodeResource(getResources(), R.drawable.homerrightwalk6);
+    Bitmap HomerRightWalk7 = BitmapFactory.decodeResource(getResources(), R.drawable.homerrightwalk7);
+    Bitmap HomerRightWalk8 = BitmapFactory.decodeResource(getResources(), R.drawable.homerrightwalk8);
+    Bitmap HomerLeft = BitmapFactory.decodeResource(getResources(), R.drawable.homerleft);
+    Bitmap HomerLeftWalk1 = BitmapFactory.decodeResource(getResources(), R.drawable.homerleftwalk1);
+    Bitmap HomerLeftWalk2 = BitmapFactory.decodeResource(getResources(), R.drawable.homerleftwalk2);
+    Bitmap HomerLeftWalk3 = BitmapFactory.decodeResource(getResources(), R.drawable.homerleftwalk3);
+    Bitmap HomerLeftWalk4 = BitmapFactory.decodeResource(getResources(), R.drawable.homerleftwalk4);
+    Bitmap HomerLeftWalk5 = BitmapFactory.decodeResource(getResources(), R.drawable.homerleftwalk5);
+    Bitmap HomerLeftWalk6 = BitmapFactory.decodeResource(getResources(), R.drawable.homerleftwalk6);
+    Bitmap HomerLeftWalk7 = BitmapFactory.decodeResource(getResources(), R.drawable.homerleftwalk7);
+    Bitmap HomerLeftWalk8 = BitmapFactory.decodeResource(getResources(), R.drawable.homerleftwalk8);
 
     //Last direction facing
     String last_direction_facing = "right";
@@ -76,6 +91,7 @@ class GameView extends SurfaceView implements Runnable {
     boolean button_down_pressed = false;
     boolean button_left_pressed = false;
     boolean button_right_pressed = false;
+    int button_pressed_count = 0;
 
     public GameView(Context context){
         super(context);
@@ -98,37 +114,93 @@ class GameView extends SurfaceView implements Runnable {
             Canvas canvas = surfaceHolder.lockCanvas();
             canvas.drawRGB(136,192,208);
             if(button_up_pressed == true){
-                canvas.drawBitmap(burns_forward, x, y,null);
+                canvas.drawBitmap(HomerLeft, x, y,null);
                 last_direction_facing = "up";
                 y = y-1;
             }
-            if(button_down_pressed == true){
-                canvas.drawBitmap(burns_forward, x, y,null);
+            else if(button_down_pressed == true){
+                canvas.drawBitmap(HomerLeft, x, y,null);
                 last_direction_facing = "down";
                 y = y+1;
             }
-            if(button_left_pressed == true){
-                canvas.drawBitmap(burns_left, x, y,null);
+            else if(button_left_pressed == true){
+                if(button_pressed_count < 10){
+                    canvas.drawBitmap(HomerLeftWalk4, x, y, null);
+                }
+                else if(button_pressed_count < 20){
+                    canvas.drawBitmap(HomerLeftWalk5, x, y, null);
+                }
+                else if(button_pressed_count < 30){
+                    canvas.drawBitmap(HomerLeftWalk6, x, y, null);
+                }
+                else if(button_pressed_count < 40){
+                    canvas.drawBitmap(HomerLeftWalk7, x, y, null);
+                }
+                else if(button_pressed_count < 50){
+                    canvas.drawBitmap(HomerLeftWalk8, x, y, null);
+                }
+                else if(button_pressed_count < 60){
+                    canvas.drawBitmap(HomerLeftWalk1, x, y, null);
+                }
+                else if(button_pressed_count < 70){
+                    canvas.drawBitmap(HomerLeftWalk2, x, y, null);
+                }
+                else if(button_pressed_count < 80){
+                    canvas.drawBitmap(HomerLeftWalk3, x, y, null);
+                }
+                else if(button_pressed_count == 80){
+                    canvas.drawBitmap(HomerLeftWalk3, x, y, null);
+                    button_pressed_count = 0;
+                }
                 last_direction_facing = "left";
-                x = x-1;
-            }
-            if(button_right_pressed == true){
-                canvas.drawBitmap(burns_right, x, y,null);
+                x = x-2;
+                button_pressed_count += 1; }
+            else if(button_right_pressed == true){
+                if(button_pressed_count < 10){
+                    canvas.drawBitmap(HomerRightWalk4, x, y, null);
+                }
+                else if(button_pressed_count < 20){
+                    canvas.drawBitmap(HomerRightWalk5, x, y, null);
+                }
+                else if(button_pressed_count < 30){
+                    canvas.drawBitmap(HomerRightWalk6, x, y, null);
+                }
+                else if(button_pressed_count < 40){
+                    canvas.drawBitmap(HomerRightWalk7, x, y, null);
+                }
+                else if(button_pressed_count < 50){
+                    canvas.drawBitmap(HomerRightWalk8, x, y, null);
+                }
+                else if(button_pressed_count < 60){
+                    canvas.drawBitmap(HomerRightWalk1, x, y, null);
+                }
+                else if(button_pressed_count < 70){
+                    canvas.drawBitmap(HomerRightWalk2, x, y, null);
+                }
+                else if(button_pressed_count < 80){
+                    canvas.drawBitmap(HomerRightWalk3, x, y, null);
+                }
+                else if(button_pressed_count == 80){
+                    canvas.drawBitmap(HomerRightWalk3, x, y, null);
+                    button_pressed_count = 0;
+                }
                 last_direction_facing = "right";
-                x = x+1;
+                x = x+2;
+                button_pressed_count += 1;
             }
             else{
+                button_pressed_count = 0;
                 if(last_direction_facing == "up"){
-                    canvas.drawBitmap(burns_forward, x, y,null);
+                    canvas.drawBitmap(HomerLeft, x, y,null);
                 }
                 if(last_direction_facing == "down"){
-                    canvas.drawBitmap(burns_forward, x, y,null);
+                    canvas.drawBitmap(HomerLeft, x, y,null);
                 }
                 if(last_direction_facing == "left"){
-                    canvas.drawBitmap(burns_left, x, y,null);
+                    canvas.drawBitmap(HomerLeft, x, y,null);
                 }
                 if(last_direction_facing == "right"){
-                    canvas.drawBitmap(burns_right, x, y,null);
+                    canvas.drawBitmap(HomerRight, x, y,null);
                 }
             }
             current_time = System.currentTimeMillis();
