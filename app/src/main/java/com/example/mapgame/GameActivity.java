@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -21,9 +23,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button button_down;
     private Button button_up;
 
+    private ProgressBar health_bar;
+    private TextView    attackedText;
+
     private GameFragment gameFragment;
 
     private int move = 30;
+    private int health;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +42,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         button_down = findViewById(R.id.buttonDown);
         button_up = findViewById(R.id.buttonUp);
 
+        // For now health bar is hooked up to attack button.
+        health_bar   = findViewById(R.id.determinateBar);
+        attackedText = findViewById(R.id.textViewAttachedText);
+
+
         button_attack.setOnClickListener(this);
+
+
 
         //Creating Game Fragment
         gameFragment = new GameFragment();
@@ -111,10 +124,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.buttonAttack){
-            int num = (int) (Math.random()*255);
+            // Set square to random color
+//            int num = (int) (Math.random()*255);
+//            gameFragment.gameView.myPaint.setColor(Color.rgb(0, 0, num));
+
+            // onClick of attack button, lower health by 15 points
+            health = health_bar.getProgress();
+            health_bar.setProgress(health - 15);
+
+            // Set text on attack button
+            if(attackedText.getText().equals("Doh!")) {
+                attackedText.setText("");
+            }
+            else {
+                attackedText.setText(R.string.doh);
+            }
+
 
             Log.i(TAG, "Attack Button Was Clicked");
-            gameFragment.gameView.myPaint.setColor(Color.rgb(0, 0, num));
             gameFragment.setButtonEvent( new ButtonEvent("Attack Button Clicked"));
         }
     }

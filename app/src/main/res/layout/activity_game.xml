@@ -17,6 +17,42 @@
     android:layout_margin="10dp"
     tools:context=".GameActivity">
 
+<!--    Indeterminate for no known end time-->
+<!--    <ProgressBar-->
+<!--        android:id="@+id/indeterminateHealthBar"-->
+<!--        style="@android:style/Widget.ProgressBar.Horizontal"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        />-->
+
+<!--    Determinate bar with set progress. -->
+
+    <TextView
+        android:id="@+id/textViewHealth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="@string/health" />
+
+    <ProgressBar
+        android:id="@+id/determinateBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="@dimen/one_hundred"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewHealth"
+        android:progress="75"/>
+
+    <TextView
+        android:id="@+id/textViewAttachedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewHealth"
+        android:layout_toEndOf="@id/determinateBar"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/red"
+        android:text="" />
+
     <Button
         android:id="@+id/buttonLeft"
         android:layout_width="wrap_content"
