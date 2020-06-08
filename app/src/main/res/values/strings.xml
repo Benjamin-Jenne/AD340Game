@@ -15,4 +15,6 @@
     <string name="up">\u2191</string>
     <string name="attack">\u2694</string>
     <string name="pickup">pickup</string>
+    <string name="health">Health</string>
+    <string name="doh">Doh!</string>
 </resources>

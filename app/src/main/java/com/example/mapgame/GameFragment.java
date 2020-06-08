@@ -53,7 +53,15 @@ class GameView extends SurfaceView implements Runnable {
     SurfaceHolder surfaceHolder;
     volatile boolean running = false;
     int x = 100;
-    int y = 100;
+    int y = 200;
+
+    // NPC start
+    int x2 = 500;
+    int y2 = 500;
+
+    int x3 = 100;
+    int y3 = 600;
+
     Paint myPaint = new Paint();
 
     //Time & frames per second
@@ -62,6 +70,8 @@ class GameView extends SurfaceView implements Runnable {
     long delta_time;
     long frames_per_second;
     int screen_update_count = 0;
+
+
 
     //Bitmaps
     Bitmap HomerRight = BitmapFactory.decodeResource(getResources(), R.drawable.homerright);
@@ -82,6 +92,10 @@ class GameView extends SurfaceView implements Runnable {
     Bitmap HomerLeftWalk6 = BitmapFactory.decodeResource(getResources(), R.drawable.homerleftwalk6);
     Bitmap HomerLeftWalk7 = BitmapFactory.decodeResource(getResources(), R.drawable.homerleftwalk7);
     Bitmap HomerLeftWalk8 = BitmapFactory.decodeResource(getResources(), R.drawable.homerleftwalk8);
+
+    // NPC burns
+    Bitmap BurnsLeft = BitmapFactory.decodeResource(getResources(), R.drawable.burnsm_left);
+    Bitmap BurnsRight = BitmapFactory.decodeResource(getResources(), R.drawable.burnsm_right);
 
     //Last direction facing
     String last_direction_facing = "right";
@@ -203,6 +217,14 @@ class GameView extends SurfaceView implements Runnable {
                     canvas.drawBitmap(HomerRight, x, y,null);
                 }
             }
+            // Draw NPC burns
+            x2--;
+            y2--;
+            x3++;
+            y3++;
+            canvas.drawBitmap(BurnsLeft, x2, y2, null);
+            canvas.drawBitmap(BurnsRight, x3, y3, null);
+
             current_time = System.currentTimeMillis();
             delta_time = previous_time - current_time;
             previous_time = current_time;
