@@ -1,5 +1,6 @@
 package com.example.mapgame;
 
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
@@ -13,6 +14,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
 
 //@RunWith(AndroidJUnit4.class)
 public class GameActivityTest {
@@ -32,9 +34,13 @@ public class GameActivityTest {
         onView(withId(R.id.textViewHealth)).check(matches(withText(R.string.health)));
 
         onView(withId(R.id.buttonLeft)).perform(click());
+        onView(withId(R.id.buttonLeft)).perform(ViewActions.longClick());
         onView(withId(R.id.buttonRight)).perform(click());
+        onView(withId(R.id.buttonRight)).perform(ViewActions.longClick());
         onView(withId(R.id.buttonUp)).perform(click());
+        onView(withId(R.id.buttonUp)).perform(ViewActions.longClick());
         onView(withId(R.id.buttonDown)).perform(click());
+        onView(withId(R.id.buttonDown)).perform(ViewActions.longClick());
 
         attackClick();
 
