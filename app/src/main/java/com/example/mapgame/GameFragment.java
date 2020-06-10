@@ -55,6 +55,10 @@ class GameView extends SurfaceView implements Runnable {
     int x = 100;
     int y = 200;
 
+    // avatar movement increment
+    final int X_INCREMENT = 10;
+    final int Y_INCREMENT = X_INCREMENT;
+
     // NPC start
     int x2 = 500;
     int y2 = 500;
@@ -130,12 +134,12 @@ class GameView extends SurfaceView implements Runnable {
             if(button_up_pressed == true){
                 canvas.drawBitmap(HomerLeft, x, y,null);
                 last_direction_facing = "up";
-                y = y-1;
+                y = y-Y_INCREMENT;
             }
             else if(button_down_pressed == true){
                 canvas.drawBitmap(HomerLeft, x, y,null);
                 last_direction_facing = "down";
-                y = y+1;
+                y = y+Y_INCREMENT;
             }
             else if(button_left_pressed == true){
                 if(button_pressed_count < 10){
@@ -167,7 +171,7 @@ class GameView extends SurfaceView implements Runnable {
                     button_pressed_count = 0;
                 }
                 last_direction_facing = "left";
-                x = x-2;
+                x = x-X_INCREMENT;
                 button_pressed_count += 1; }
             else if(button_right_pressed == true){
                 if(button_pressed_count < 10){
@@ -199,7 +203,7 @@ class GameView extends SurfaceView implements Runnable {
                     button_pressed_count = 0;
                 }
                 last_direction_facing = "right";
-                x = x+2;
+                x = x+X_INCREMENT;
                 button_pressed_count += 1;
             }
             else{
