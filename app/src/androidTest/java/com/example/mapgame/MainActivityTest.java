@@ -19,11 +19,11 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
     @Rule
     public ActivityTestRule<MainActivity> activityTestRule
-            = new ActivityTestRule<>(MainActivity.class);
+            = new ActivityTestRule<>(MainActivity.class, true ,true);
 
     @Test
     public void hasTitle() {
@@ -41,7 +41,7 @@ public class MainActivityTest {
                 .check(matches(withText(R.string.game_instructions)));
     }
     @Test
-    public static void testClickPlay(){
+    public void testClickPlay(){
         onView(withId(R.id.buttonPlay)).perform(click());
     }
 

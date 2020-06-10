@@ -18,47 +18,48 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onCreate()");
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.i(TAG, "onRestart()");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        Log.i(TAG, "Start()");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i(TAG, "onResume()");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i(TAG, "onPause()");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i(TAG, "onStop()");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i(TAG, "onDestroy()");
-    }
-
-
     public void goToMapActivity(View view) {
-        Intent intent = new Intent(MainActivity.this, GameActivity.class);
 
+        Intent intent = new Intent(MainActivity.this, GameActivity.class);
         startActivity(intent);
     }
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        Log.i(TAG, "onRestart()");
+//    }
+//
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        Log.i(TAG, "Start()");
+//    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        Log.i(TAG, "onResume()");
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        Log.i(TAG, "onPause()");
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        Log.i(TAG, "onStop()");
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        Log.i(TAG, "onDestroy()");
+//    }
+
+
+
 }
