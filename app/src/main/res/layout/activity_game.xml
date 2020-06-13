@@ -14,7 +14,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:layout_margin="@dimen/game_relative_layout_margin"
     tools:context=".GameActivity">
 
 <!--    Indeterminate for no known end time-->
@@ -31,7 +31,8 @@
         android:id="@+id/textViewHealth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:layout_marginStart="@dimen/health_text_margin_start"
+        android:textSize="@dimen/health_text_size"
         android:textStyle="bold"
         android:text="@string/health" />
 
@@ -41,7 +42,8 @@
         android:layout_width="@dimen/one_hundred"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewHealth"
-        android:progress="75"/>
+        android:layout_marginStart="@dimen/det_bar_margin_start"
+        android:progress="100"/>
 
     <TextView
         android:id="@+id/textViewAttachedText"
@@ -49,9 +51,31 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewHealth"
         android:layout_toEndOf="@id/determinateBar"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="@dimen/doh_text_margin_start"
         android:textColor="@color/red"
         android:text="" />
+
+    <TextView
+        android:id="@+id/textViewScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="@dimen/score_text_size"
+        android:layout_toEndOf="@id/determinateBar"
+        android:layout_marginLeft="@dimen/score_text_margin_left"
+        android:text="@string/score"
+        />
+
+    <TextView
+        android:id="@+id/textViewScoreAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="@dimen/score_text_size"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textViewScore"
+        android:layout_toStartOf="@id/textViewScore"
+        />
 
     <Button
         android:id="@+id/buttonLeft"

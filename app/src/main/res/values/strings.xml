@@ -17,4 +17,5 @@
     <string name="pickup">pickup</string>
     <string name="health">Health</string>
     <string name="doh">Doh!</string>
+    <string name="score">Score:</string>
 </resources>
