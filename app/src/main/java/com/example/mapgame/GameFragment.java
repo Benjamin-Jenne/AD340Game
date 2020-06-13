@@ -164,6 +164,7 @@ class GameView extends SurfaceView implements Runnable {
     boolean button_attack_pressed = false;
 
     int button_pressed_count = 0;
+    int attack_button_pressed_count = 0;
 
     public GameView(Context context){
         super(context);
@@ -331,54 +332,33 @@ class GameView extends SurfaceView implements Runnable {
                 } else if(last_direction_facing == 2) {
                     attx = x;
                     atty = y + entityHeight;
-
-                    if (button_pressed_count < 10) {
-                        canvas.drawBitmap(Attack1, attx, atty, null);
-                    } else if (button_pressed_count < 20) {
-                        canvas.drawBitmap(Attack2, attx, atty, null);
-                    } else if (button_pressed_count < 30) {
-                        canvas.drawBitmap(Attack3, attx, atty, null);
-                    } else if (button_pressed_count < 40) {
-                        canvas.drawBitmap(Attack4, attx, atty, null);
-                    } else if (button_pressed_count < 50) {
-                        canvas.drawBitmap(Attack5, attx, atty, null);
-                    } else if (button_pressed_count < 60) {
-                        canvas.drawBitmap(Attack6, attx, atty, null);
-                    } else if (button_pressed_count < 70) {
-                        canvas.drawBitmap(Attack7, attx, atty, null);
-                    } else if (button_pressed_count < 80) {
-                        canvas.drawBitmap(Attack8, attx, atty, null);
-                    } else if (button_pressed_count == 80) {
-                        canvas.drawBitmap(Attack1, attx, atty, null);
-                        button_pressed_count = 0;
-                    }
-                    button_pressed_count += 1;
                 } else if(last_direction_facing == 3) {
                     attx = x - entityWidth;
                     atty = y;
                 }
 
-                if (button_pressed_count < 10) {
+                // Attack button animation
+                if (attack_button_pressed_count < 10) {
                     canvas.drawBitmap(Attack1, attx, atty, null);
-                } else if (button_pressed_count < 20) {
+                } else if (attack_button_pressed_count < 20) {
                     canvas.drawBitmap(Attack2, attx, atty, null);
-                } else if (button_pressed_count < 30) {
+                } else if (attack_button_pressed_count < 30) {
                     canvas.drawBitmap(Attack3, attx, atty, null);
-                } else if (button_pressed_count < 40) {
+                } else if (attack_button_pressed_count < 40) {
                     canvas.drawBitmap(Attack4, attx, atty, null);
-                } else if (button_pressed_count < 50) {
+                } else if (attack_button_pressed_count < 50) {
                     canvas.drawBitmap(Attack5, attx, atty, null);
-                } else if (button_pressed_count < 60) {
+                } else if (attack_button_pressed_count < 60) {
                     canvas.drawBitmap(Attack6, attx, atty, null);
-                } else if (button_pressed_count < 70) {
+                } else if (attack_button_pressed_count < 70) {
                     canvas.drawBitmap(Attack7, attx, atty, null);
-                } else if (button_pressed_count < 80) {
+                } else if (attack_button_pressed_count < 80) {
                     canvas.drawBitmap(Attack8, attx, atty, null);
-                } else if (button_pressed_count == 80) {
+                } else if (attack_button_pressed_count == 80) {
                     canvas.drawBitmap(Attack1, attx, atty, null);
-                    button_pressed_count = 0;
+                    attack_button_pressed_count = 0;
                 }
-                button_pressed_count += 1;
+                attack_button_pressed_count += 1;
             }
 
             //-----------------------------------------------------
