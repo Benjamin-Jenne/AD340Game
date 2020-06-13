@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="one_hundred">100dp</dimen>
+    <dimen name="health_text_size">20sp</dimen>
+    <dimen name="doh_text_margin_start">20dp</dimen>
+    <dimen name="score_text_size">20sp</dimen>
+    <dimen name="score_text_padding_end">300dp</dimen>
+    <dimen name="game_relative_layout_margin">10dp</dimen>
+    <dimen name="det_bar_margin_start">30dp</dimen>
+    <dimen name="health_text_margin_start">30dp</dimen>
+    <dimen name="score_text_margin_left">120dp</dimen>
 </resources>

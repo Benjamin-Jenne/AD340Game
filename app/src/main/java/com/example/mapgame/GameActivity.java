@@ -1,5 +1,6 @@
 package com.example.mapgame;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,11 +27,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressBar health_bar;
     private TextView    attackedText;
 
+    private TextView score;
+    private TextView scoreAmount;
+
     private GameFragment gameFragment;
 
-    private int move = 30;
+    private int move = 20;
     private int health;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +50,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         // For now health bar is hooked up to attack button.
         health_bar   = findViewById(R.id.determinateBar);
         attackedText = findViewById(R.id.textViewAttachedText);
+
+        score = findViewById(R.id.textViewScore);
+        scoreAmount = findViewById(R.id.textViewScoreAmount);
+
+
 
 
         button_attack.setOnClickListener(this);
@@ -62,12 +72,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         button_left.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     Log.i(TAG, "Button Left Pressed Down");
                     gameFragment.gameView.button_left_pressed = true;
                     gameFragment.setButtonEvent( new ButtonEvent("Button Left Pressed Down"));
                 }
-                if(event.getAction() == MotionEvent.ACTION_UP){
+                if(event.getAction() == MotionEvent.ACTION_UP) {
                     Log.i(TAG, "Button Left Released");
                     gameFragment.gameView.button_left_pressed = false;
                     gameFragment.setButtonEvent( new ButtonEvent("Button Left Pressed Released"));
@@ -78,12 +88,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         button_right.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     Log.i(TAG, "Button Right Pressed Down");
                     gameFragment.gameView.button_right_pressed = true;
                     gameFragment.setButtonEvent( new ButtonEvent("Button Right Pressed Down"));
                 }
-                if(event.getAction() == MotionEvent.ACTION_UP){
+                if(event.getAction() == MotionEvent.ACTION_UP) {
                     Log.i(TAG, "Button Right Released");
                     gameFragment.gameView.button_right_pressed = false;
                     gameFragment.setButtonEvent( new ButtonEvent("Button Right Released"));
@@ -94,56 +104,81 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         button_down.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     Log.i(TAG, "Button Down Pressed Down");
                     gameFragment.gameView.button_down_pressed = true;
                     gameFragment.setButtonEvent( new ButtonEvent("Button Down Pressed Down"));
                 }
-                if(event.getAction() == MotionEvent.ACTION_UP){
+                if(event.getAction() == MotionEvent.ACTION_UP) {
                     gameFragment.gameView.button_down_pressed = false;
                     gameFragment.setButtonEvent( new ButtonEvent("Button Down Released"));
                 }
                 return true;
-        }});
+            }
+        });
         button_up.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     Log.i(TAG, "Button Up Pressed Down");
                     gameFragment.gameView.button_up_pressed = true;
                     gameFragment.setButtonEvent( new ButtonEvent("Button Up Pressed Down"));
                 }
-                if(event.getAction() == MotionEvent.ACTION_UP){
+                if(event.getAction() == MotionEvent.ACTION_UP) {
                     Log.i(TAG, "Button Up Released");
                     gameFragment.gameView.button_up_pressed = false;
                     gameFragment.setButtonEvent( new ButtonEvent("Button Up Released"));
                 }
                 return true;
-            }});
+            }
+        });
+        button_attack.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Log.i(TAG, "Button attack Pressed Down");
+                    gameFragment.gameView.button_attack_pressed = true;
+                    gameFragment.setButtonEvent( new ButtonEvent("Button attack Pressed Down"));
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    Log.i(TAG, "Button attack Released");
+                    gameFragment.gameView.button_attack_pressed = false;
+                    gameFragment.setButtonEvent( new ButtonEvent("Button attack Released"));
+                }
+                return true;
+            }
+        });
+
+//        if(gameFragment.gameView.takingDamage) {
+//            health = health_bar.getProgress();
+//            health_bar.setProgress(health - 5);
+//        }
     }
+
+
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.buttonAttack){
-            // Set square to random color
+//        if(v.getId() == R.id.buttonAttack){
+//
 //            int num = (int) (Math.random()*255);
 //            gameFragment.gameView.myPaint.setColor(Color.rgb(0, 0, num));
-
-            // onClick of attack button, lower health by 15 points
-            health = health_bar.getProgress();
-            health_bar.setProgress(health - 15);
-
-            // Set text on attack button
-            if(attackedText.getText().equals("Doh!")) {
-                attackedText.setText("");
-            }
-            else {
-                attackedText.setText(R.string.doh);
-            }
-
-
-            Log.i(TAG, "Attack Button Was Clicked");
-            gameFragment.setButtonEvent( new ButtonEvent("Attack Button Clicked"));
-        }
+//
+//
+//            health = health_bar.getProgress();
+//            health_bar.setProgress(health - 5);
+//
+//
+//            if(attackedText.getText().equals("Doh!")) {
+//                attackedText.setText("");
+//            }
+//            else {
+//                attackedText.setText(R.string.doh);
+//            }
+//
+//
+//            Log.i(TAG, "Attack Button Was Clicked");
+//            gameFragment.setButtonEvent( new ButtonEvent("Attack Button Clicked"));
+//        }
     }
 
     public class ButtonEvent {
