@@ -14,20 +14,35 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Chronometer;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class GameFragment extends Fragment {
+import com.example.mapgame.entities.HealthBarListener;
+
+public class GameFragment extends Fragment implements HealthBarListener{
     private GameActivity.ButtonEvent buttonEvent;
     GameView gameView;
+    ProgressBar healthBar;
+    Chronometer timer;
+
+    int healthLevel;
+
     private static final String TAG = GameFragment.class.getSimpleName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState){
+        healthBar = getActivity().findViewById(R.id.determinateBar);
+        timer     = getActivity().findViewById(R.id.chronometerTimer);
+        timer.start();
+
         gameView = new GameView(getActivity());
+        gameView.setCallback(this);
         return gameView;
     }
     @Override
@@ -45,13 +60,23 @@ public class GameFragment extends Fragment {
         this.buttonEvent = buttonEvent;
         Log.i(TAG, "inside game frag "+ buttonEvent);
     }
+
+    // Lower Activity health bar via listener
+    @Override
+    public void onPlayerAttacked() {
+        healthLevel = healthBar.getProgress();
+        healthBar.setProgress(healthLevel - 1);
+    }
 }
 //Game Loop credit:
 //Zechner, Mario. Beginning Android Games . Apress. Kindle Edition.
-class GameView extends SurfaceView implements Runnable {
+class GameView extends SurfaceView implements Runnable{
+    private static final String TAG = GameFragment.class.getSimpleName();
     Thread gameThread = null;
     SurfaceHolder surfaceHolder;
     volatile boolean running = false;
+
+    private HealthBarListener mCallback;
 
     // Player starting position, other stats
     int x = 200;
@@ -73,7 +98,8 @@ class GameView extends SurfaceView implements Runnable {
     int atty;
 
     // health
-    int health = 1200;
+//    int health = 1200;
+    int health = 100; // Changed to match progress bar
 
     // NPC starting position
     int x2 = 600;
@@ -130,18 +156,18 @@ class GameView extends SurfaceView implements Runnable {
     Bitmap Attack7 = BitmapFactory.decodeResource(getResources(), R.drawable.attack_7);
     Bitmap Attack8 = BitmapFactory.decodeResource(getResources(), R.drawable.attack_8);
 
-    Bitmap Health1 = BitmapFactory.decodeResource(getResources(), R.drawable.health_1);
-    Bitmap Health2 = BitmapFactory.decodeResource(getResources(), R.drawable.health_2);
-    Bitmap Health3 = BitmapFactory.decodeResource(getResources(), R.drawable.health_3);
-    Bitmap Health4 = BitmapFactory.decodeResource(getResources(), R.drawable.health_4);
-    Bitmap Health5 = BitmapFactory.decodeResource(getResources(), R.drawable.health_5);
-    Bitmap Health6 = BitmapFactory.decodeResource(getResources(), R.drawable.health_6);
-    Bitmap Health7 = BitmapFactory.decodeResource(getResources(), R.drawable.health_7);
-    Bitmap Health8 = BitmapFactory.decodeResource(getResources(), R.drawable.health_8);
-    Bitmap Health9 = BitmapFactory.decodeResource(getResources(), R.drawable.health_9);
-    Bitmap Health10 = BitmapFactory.decodeResource(getResources(), R.drawable.health_10);
-    Bitmap Health11 = BitmapFactory.decodeResource(getResources(), R.drawable.health_11);
-    Bitmap Health12 = BitmapFactory.decodeResource(getResources(), R.drawable.health_12);
+//    Bitmap Health1 = BitmapFactory.decodeResource(getResources(), R.drawable.health_1);
+//    Bitmap Health2 = BitmapFactory.decodeResource(getResources(), R.drawable.health_2);
+//    Bitmap Health3 = BitmapFactory.decodeResource(getResources(), R.drawable.health_3);
+//    Bitmap Health4 = BitmapFactory.decodeResource(getResources(), R.drawable.health_4);
+//    Bitmap Health5 = BitmapFactory.decodeResource(getResources(), R.drawable.health_5);
+//    Bitmap Health6 = BitmapFactory.decodeResource(getResources(), R.drawable.health_6);
+//    Bitmap Health7 = BitmapFactory.decodeResource(getResources(), R.drawable.health_7);
+//    Bitmap Health8 = BitmapFactory.decodeResource(getResources(), R.drawable.health_8);
+//    Bitmap Health9 = BitmapFactory.decodeResource(getResources(), R.drawable.health_9);
+//    Bitmap Health10 = BitmapFactory.decodeResource(getResources(), R.drawable.health_10);
+//    Bitmap Health11 = BitmapFactory.decodeResource(getResources(), R.drawable.health_11);
+//    Bitmap Health12 = BitmapFactory.decodeResource(getResources(), R.drawable.health_12);
 
     Bitmap WallBrick = BitmapFactory.decodeResource(getResources(), R.drawable.wall_brick_sprite);
     Bitmap WallCorner = BitmapFactory.decodeResource(getResources(), R.drawable.wall_corner_sprite);
@@ -166,10 +192,10 @@ class GameView extends SurfaceView implements Runnable {
     int button_pressed_count = 0;
     int attack_button_pressed_count = 0;
 
+
     public GameView(Context context){
         super(context);
         surfaceHolder = getHolder();
-
         myPaint.setColor(Color.rgb(0, 0, 0));
 
     }
@@ -501,38 +527,41 @@ class GameView extends SurfaceView implements Runnable {
             }
 
             if(takingDamage) {
-                health = health - 2;
+                health = health - 1;
+                // Call listener
+                mCallback.onPlayerAttacked();
             }
+
 
             // Display health
 
-            if(health == 1200) {
-                canvas.drawBitmap(Health12, 200, 300, null);
-            } else if(health >= 1100 && health < 1200) {
-                canvas.drawBitmap(Health11, 200, 300, null);
-            } else if(health >= 1000 && health < 1100) {
-                canvas.drawBitmap(Health10, 200, 300, null);
-            } else if(health >= 900 && health < 1000) {
-                canvas.drawBitmap(Health9, 200, 300, null);
-            } else if(health >= 800 && health < 900) {
-                canvas.drawBitmap(Health8, 200, 300, null);
-            } else if(health >= 700 && health < 800) {
-                canvas.drawBitmap(Health7, 200, 300, null);
-            } else if(health >= 600 && health < 700) {
-                canvas.drawBitmap(Health6, 200, 300, null);
-            } else if(health >= 500 && health < 600) {
-                canvas.drawBitmap(Health5, 200, 300, null);
-            } else if(health >= 400 && health < 500) {
-                canvas.drawBitmap(Health4, 200, 300, null);
-            } else if(health >= 300 && health < 400) {
-                canvas.drawBitmap(Health3, 200, 300, null);
-            } else if(health >= 200 && health < 300) {
-                canvas.drawBitmap(Health2, 200, 300, null);
-            } else if(health >= 100 && health < 200) {
-                canvas.drawBitmap(Health1, 200, 300, null);
-            } else if(health >= 1 && health < 100) {
-                canvas.drawBitmap(Health1, 200, 300, null);
-            }
+//            if(health == 1200) {
+//                canvas.drawBitmap(Health12, 200, 300, null);
+//            } else if(health >= 1100 && health < 1200) {
+//                canvas.drawBitmap(Health11, 200, 300, null);
+//            } else if(health >= 1000 && health < 1100) {
+//                canvas.drawBitmap(Health10, 200, 300, null);
+//            } else if(health >= 900 && health < 1000) {
+//                canvas.drawBitmap(Health9, 200, 300, null);
+//            } else if(health >= 800 && health < 900) {
+//                canvas.drawBitmap(Health8, 200, 300, null);
+//            } else if(health >= 700 && health < 800) {
+//                canvas.drawBitmap(Health7, 200, 300, null);
+//            } else if(health >= 600 && health < 700) {
+//                canvas.drawBitmap(Health6, 200, 300, null);
+//            } else if(health >= 500 && health < 600) {
+//                canvas.drawBitmap(Health5, 200, 300, null);
+//            } else if(health >= 400 && health < 500) {
+//                canvas.drawBitmap(Health4, 200, 300, null);
+//            } else if(health >= 300 && health < 400) {
+//                canvas.drawBitmap(Health3, 200, 300, null);
+//            } else if(health >= 200 && health < 300) {
+//                canvas.drawBitmap(Health2, 200, 300, null);
+//            } else if(health >= 100 && health < 200) {
+//                canvas.drawBitmap(Health1, 200, 300, null);
+//            } else if(health >= 1 && health < 100) {
+//                canvas.drawBitmap(Health1, 200, 300, null);
+//            }
 
             takingDamage = false;
 
@@ -564,4 +593,9 @@ class GameView extends SurfaceView implements Runnable {
             }
         }
     }
+
+    public void setCallback(HealthBarListener callback){
+        mCallback = callback;
+    }
+
 }

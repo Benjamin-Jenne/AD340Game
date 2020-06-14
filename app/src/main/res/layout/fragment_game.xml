@@ -10,17 +10,19 @@
     android:background="@android:color/white"
     tools:context=".GameFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This is the game fragment. It is under the buttons."
-        android:id="@+id/game_fragment_placeholder"
-        android:textSize="25dp"/>
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="This is the game fragment. It is under the buttons."-->
+<!--        android:id="@+id/game_fragment_placeholder"-->
+<!--        android:textSize="25dp"/>-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonEventTextView"
-        android:textSize="55dp"/>
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/buttonEventTextView"-->
+<!--        android:textSize="55dp"/>-->
+
+
 
 </LinearLayout>

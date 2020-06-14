@@ -18,4 +18,5 @@
     <string name="health">Health</string>
     <string name="doh">Doh!</string>
     <string name="score">Score:</string>
+    <string name="one_hundred">100</string>
 </resources>

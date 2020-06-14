@@ -24,16 +24,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button button_down;
     private Button button_up;
 
-    private ProgressBar health_bar;
-    private TextView    attackedText;
-
     private TextView score;
     private TextView scoreAmount;
 
     private GameFragment gameFragment;
 
     private int move = 20;
-    private int health;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -46,10 +42,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         button_right = findViewById(R.id.buttonRight);
         button_down = findViewById(R.id.buttonDown);
         button_up = findViewById(R.id.buttonUp);
-
-        // For now health bar is hooked up to attack button.
-        health_bar   = findViewById(R.id.determinateBar);
-        attackedText = findViewById(R.id.textViewAttachedText);
 
         score = findViewById(R.id.textViewScore);
         scoreAmount = findViewById(R.id.textViewScoreAmount);
@@ -174,8 +166,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //            else {
 //                attackedText.setText(R.string.doh);
 //            }
-//
-//
 //            Log.i(TAG, "Attack Button Was Clicked");
 //            gameFragment.setButtonEvent( new ButtonEvent("Attack Button Clicked"));
 //        }
