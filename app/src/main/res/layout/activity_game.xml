@@ -17,16 +17,6 @@
     android:layout_margin="@dimen/game_relative_layout_margin"
     tools:context=".GameActivity">
 
-<!--    Indeterminate for no known end time-->
-<!--    <ProgressBar-->
-<!--        android:id="@+id/indeterminateHealthBar"-->
-<!--        style="@android:style/Widget.ProgressBar.Horizontal"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        />-->
-
-<!--    Determinate bar with set progress. -->
-
     <TextView
         android:id="@+id/textViewHealth"
         android:layout_width="wrap_content"
@@ -43,17 +33,24 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewHealth"
         android:layout_marginStart="@dimen/det_bar_margin_start"
-        android:progress="100"/>
+        android:progress="@string/one_hundred"/>
 
-    <TextView
-        android:id="@+id/textViewAttachedText"
+    <Chronometer
+        android:id="@+id/chronometerTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewHealth"
-        android:layout_toEndOf="@id/determinateBar"
-        android:layout_marginStart="@dimen/doh_text_margin_start"
-        android:textColor="@color/red"
-        android:text="" />
+        android:layout_below="@id/determinateBar"
+        android:layout_alignStart="@id/determinateBar"
+        android:textStyle="bold"/>
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewAttachedText"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:layout_marginStart="@dimen/doh_text_margin_start"-->
+<!--        android:textColor="@color/red"-->
+<!--        android:text="" />-->
 
     <TextView
         android:id="@+id/textViewScore"
@@ -61,10 +58,8 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="@dimen/score_text_size"
-        android:layout_toEndOf="@id/determinateBar"
         android:layout_marginLeft="@dimen/score_text_margin_left"
-        android:text="@string/score"
-        />
+        android:text="@string/score" />
 
     <TextView
         android:id="@+id/textViewScoreAmount"
