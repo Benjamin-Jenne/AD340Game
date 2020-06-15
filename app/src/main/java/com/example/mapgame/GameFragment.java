@@ -27,8 +27,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mapgame.entities.HealthBarListener;
 
-//import static com.example.mapgame.GameFragment.runOnUiThread;
-
 public class GameFragment extends Fragment implements HealthBarListener{
     private GameActivity.ButtonEvent buttonEvent;
     GameView gameView;
@@ -44,10 +42,6 @@ public class GameFragment extends Fragment implements HealthBarListener{
     int scoreLevel;
 
     private static final String TAG = GameFragment.class.getSimpleName();
-
-//    public static void runOnUiThread(Runnable in_run) {
-//        in_run.run();
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState){
@@ -72,7 +66,7 @@ public class GameFragment extends Fragment implements HealthBarListener{
     @Override
     public void onPause(){
         super.onPause();
-//        gameView.pause();
+        gameView.pause();
     }
 
     public void setButtonEvent(GameActivity.ButtonEvent buttonEvent){
@@ -99,10 +93,27 @@ public class GameFragment extends Fragment implements HealthBarListener{
     }
 
     @Override
-    public void onScore() {
+    public void onScore(String entity) {
         getActivity().runOnUiThread(()-> {
+
+            if(entity.equals("Enemy")) {
+                scoreLevel = scoreLevel + 100;
+            }
+
+            else if (entity.equals("Coin")) {
+                scoreLevel = scoreLevel + 10;
+            }
+
+            else if (entity.equals("Item")) {
+                scoreLevel = scoreLevel + 50;
+            }
+
             score.setText(""+scoreLevel);
-            scoreLevel = scoreLevel + 10;
+
+            // Score as timer
+//            score.setText(""+scoreLevel);
+//            scoreLevel = scoreLevel + 10;
+
         });
 
     }
@@ -161,6 +172,11 @@ class GameView extends SurfaceView implements Runnable{
 
     int x7 = 800;
     int y7 = 1700;
+
+    // Item / Coin Start
+    int xi = 500;
+    int yi = 500;
+
 
     //Enemy respawning timer
     int enemy2Respawn;
@@ -226,7 +242,10 @@ class GameView extends SurfaceView implements Runnable{
 
     Bitmap Enemy = BitmapFactory.decodeResource(getResources(), R.drawable.enemy_sprite);
 
-    Bitmap GameOver = BitmapFactory.decodeResource(getResources(), R.drawable.game_over_1);
+    // Homer as Item
+    Bitmap Homer = BitmapFactory.decodeResource(getResources(), R.drawable.homerleft);
+
+//    Bitmap GameOver = BitmapFactory.decodeResource(getResources(), R.drawable.game_over_1);
 
     //Last direction facing
     // Up = 0, right = 1, down = 2, left = 3
@@ -239,11 +258,12 @@ class GameView extends SurfaceView implements Runnable{
     boolean button_right_pressed = false;
     boolean button_attack_pressed = false;
 
-    // Restart button
-    boolean button_restart_pressed = false;
-
     int button_pressed_count = 0;
     int attack_button_pressed_count = 0;
+
+    String enemy = "Enemy";
+    String item  = "Item";
+    String coin  = "Coin";
 
 
     public GameView(Context context){
@@ -277,7 +297,7 @@ class GameView extends SurfaceView implements Runnable{
             //------------------------------------------
 
             // Score
-            mCallback.onScore();
+//            mCallback.onScore();
 
             // Draws the player sprite
             if(button_up_pressed){
@@ -626,20 +646,61 @@ class GameView extends SurfaceView implements Runnable{
 
             //-----------------------------------------------------------
 
+            // Items / Coin
+            canvas.drawBitmap(Homer, xi, yi, null);
+
+            // Grab item and add to score
+            if ((x + entityWidth > xi && x < xi + entityWidth) && (y + entityHeight > yi && y < yi + entityHeight)) {
+                mCallback.onScore(item);
+                xi = 4000;
+            }
+
+            // Respawn item in different location
+            if (xi == 4000) {
+
+                if (yi == 700) {
+                    xi = 350;
+                    yi = 350;
+                }
+                else if (yi == 900) {
+                    xi = 200;
+                    yi = 700;
+                }
+                else if (yi == 500) {
+                    xi = 900;
+                    yi = 900;
+                }
+                else if (yi == 350) {
+                    xi = 100;
+                    yi = 600;
+                }
+                else if (yi == 600) {
+                    xi = 700;
+                    yi = 500;
+                }
+            }
+            //-----------------------------------------------------------
+
             //enemy/player_attack collision detection (enemy death)
             if(button_attack_pressed) {
-                if((attx + entityWidth > x2 && attx < x2 + entityWidth) && (atty + entityHeight > y2 && y < y2 + entityHeight)) {
+                if((attx + entityWidth > x2 && attx < x2 + entityWidth) && (atty + entityHeight > y2 && atty < y2 + entityHeight)) {
                     x2 = 4000;
+                    mCallback.onScore(enemy);
                 } else if((attx + entityWidth > x3 && attx < x3 + entityWidth) && (atty + entityHeight > y3 && atty < y3 + entityHeight)) {
                     x3 = 4000;
+                    mCallback.onScore(enemy);
                 } else if((attx + entityWidth > x4 && attx < x4 + entityWidth) && (atty + entityHeight > y4 && atty < y4 + entityHeight)) {
                     x4 = 4000;
+                    mCallback.onScore(enemy);
                 } else if((attx + entityWidth > x5 && attx < x5 + entityWidth) && (atty + entityHeight > y5 && atty < y5 + entityHeight)) {
                     x5 = 4000;
+                    mCallback.onScore(enemy);
                 } else if((attx + entityWidth > x6 && attx < x6 + entityWidth) && (atty + entityHeight > y6 && atty < y6 + entityHeight)) {
                     x6 = 4000;
+                    mCallback.onScore(enemy);
                 } else if((attx + entityWidth > x7 && attx < x7 + entityWidth) && (atty + entityHeight > y7 && atty < y7 + entityHeight)) {
                     x7 = 4000;
+                    mCallback.onScore(enemy);
                 }
             }
 
@@ -663,7 +724,8 @@ class GameView extends SurfaceView implements Runnable{
 
             if(takingDamage) {
                 health = health - 1;
-                // Call listener
+
+                // Call listener to lower health
                 mCallback.onPlayerAttacked();
             }
             takingDamage = false;
@@ -672,6 +734,8 @@ class GameView extends SurfaceView implements Runnable{
             // If player dies
             if(health < 1) {
 //                canvas.drawBitmap(GameOver, 160, 700, null);
+
+                // Call listener to display game over
                 mCallback.onPlayerKilled();
                 running = false;
             }
@@ -696,7 +760,7 @@ class GameView extends SurfaceView implements Runnable{
             try{
                 gameThread.join();
                 return;
-            } catch (InterruptedException e){
+            } catch (InterruptedException ignored){
             }
         }
     }
