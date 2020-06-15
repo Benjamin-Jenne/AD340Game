@@ -39,8 +39,6 @@ public class GameActivityTest {
 
         checkViews();
 
-//        Thread.sleep(10000);
-
         rightClick();
         attackClick();
 
@@ -53,9 +51,7 @@ public class GameActivityTest {
         upClick();
         attackClick();
 
-
-
-//        gameOver();
+        gameOver();
 
 //        Thread.sleep(5000);
 //        attacked();
@@ -72,7 +68,7 @@ public class GameActivityTest {
 
     // Click attack button
     public void attackClick() {
-        onView(withId(R.id.buttonAttack)).perform(click());
+        onView(withId(R.id.buttonAttack)).perform(ViewActions.longClick());
     }
 
     // Directional clicks. Pair with player movement
@@ -87,26 +83,23 @@ public class GameActivityTest {
     public void rightClick() {
         onView(withId(R.id.buttonRight)).perform(click());
         onView(withId(R.id.buttonRight)).perform(ViewActions.longClick());
-        onView(withId(R.id.buttonLeft)).perform(ViewActions.longClick());
-        onView(withId(R.id.buttonLeft)).perform(ViewActions.longClick());
-        onView(withId(R.id.buttonLeft)).perform(ViewActions.longClick());
-        onView(withId(R.id.buttonLeft)).perform(ViewActions.longClick());
+        onView(withId(R.id.buttonRight)).perform(ViewActions.longClick());
+        onView(withId(R.id.buttonRight)).perform(ViewActions.longClick());
+        onView(withId(R.id.buttonRight)).perform(ViewActions.longClick());
     }
     public void upClick() {
         onView(withId(R.id.buttonUp)).perform(click());
         onView(withId(R.id.buttonUp)).perform(ViewActions.longClick());
-        onView(withId(R.id.buttonLeft)).perform(ViewActions.longClick());
-        onView(withId(R.id.buttonLeft)).perform(ViewActions.longClick());
-        onView(withId(R.id.buttonLeft)).perform(ViewActions.longClick());
-        onView(withId(R.id.buttonLeft)).perform(ViewActions.longClick());
+        onView(withId(R.id.buttonUp)).perform(ViewActions.longClick());
+        onView(withId(R.id.buttonUp)).perform(ViewActions.longClick());
+        onView(withId(R.id.buttonUp)).perform(ViewActions.longClick());
     }
     public void downClick() {
         onView(withId(R.id.buttonDown)).perform(click());
         onView(withId(R.id.buttonDown)).perform(ViewActions.longClick());
-        onView(withId(R.id.buttonLeft)).perform(ViewActions.longClick());
-        onView(withId(R.id.buttonLeft)).perform(ViewActions.longClick());
-        onView(withId(R.id.buttonLeft)).perform(ViewActions.longClick());
-        onView(withId(R.id.buttonLeft)).perform(ViewActions.longClick());
+        onView(withId(R.id.buttonDown)).perform(ViewActions.longClick());
+        onView(withId(R.id.buttonDown)).perform(ViewActions.longClick());
+        onView(withId(R.id.buttonDown)).perform(ViewActions.longClick());
     }
 
     // Observe decrease in progress bar
@@ -114,10 +107,19 @@ public class GameActivityTest {
 
     }
 
-    public void gameOver() {
+    // Click Restart button
+    public void gameOver() throws InterruptedException {
 
-        onView(withId(R.id.determinateBar))
-                .check(matches(isDisplayed()));
+//        onView(withId(R.id.determinateBar))
+//                .check(matches(isDisplayed()));
+
+        Thread.sleep(10000);
+
+        onView(withId(R.id.textViewGameOver)).check(matches(isDisplayed()));
+        onView(withId(R.id.buttonRestart)).check(matches(isDisplayed()));
+
+        onView(withId(R.id.buttonRestart)).perform(click());
+
 
     }
 
