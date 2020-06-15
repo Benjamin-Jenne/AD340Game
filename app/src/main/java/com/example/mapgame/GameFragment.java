@@ -38,7 +38,7 @@ public class GameFragment extends Fragment {
     @Override
     public void onPause(){
         super.onPause();
-        gameView.pause();
+//        gameView.pause();
     }
 
     public void setButtonEvent(GameActivity.ButtonEvent buttonEvent){
@@ -93,6 +93,14 @@ class GameView extends SurfaceView implements Runnable {
 
     int x7 = 800;
     int y7 = 1700;
+
+    //Enemy respawning timer
+    int enemy2Respawn;
+    int enemy3Respawn;
+    int enemy4Respawn;
+    int enemy5Respawn;
+    int enemy6Respawn;
+    int enemy7Respawn;
 
     boolean enemy2Direction;
     boolean enemy3Direction;
@@ -164,6 +172,7 @@ class GameView extends SurfaceView implements Runnable {
     boolean button_attack_pressed = false;
 
     int button_pressed_count = 0;
+    int attack_button_pressed_count = 0;
 
     public GameView(Context context){
         super(context);
@@ -336,27 +345,28 @@ class GameView extends SurfaceView implements Runnable {
                     atty = y;
                 }
 
-                if (button_pressed_count < 5) {
+                // Attack button animation
+                if (attack_button_pressed_count < 5) {
                     canvas.drawBitmap(Attack1, attx, atty, null);
-                } else if (button_pressed_count < 10) {
+                } else if (attack_button_pressed_count < 10) {
                     canvas.drawBitmap(Attack2, attx, atty, null);
-                } else if (button_pressed_count < 15) {
+                } else if (attack_button_pressed_count < 15) {
                     canvas.drawBitmap(Attack3, attx, atty, null);
-                } else if (button_pressed_count < 20) {
+                } else if (attack_button_pressed_count < 20) {
                     canvas.drawBitmap(Attack4, attx, atty, null);
-                } else if (button_pressed_count < 25) {
+                } else if (attack_button_pressed_count < 25) {
                     canvas.drawBitmap(Attack5, attx, atty, null);
-                } else if (button_pressed_count < 30) {
+                } else if (attack_button_pressed_count < 30) {
                     canvas.drawBitmap(Attack6, attx, atty, null);
-                } else if (button_pressed_count < 35) {
+                } else if (attack_button_pressed_count < 35) {
                     canvas.drawBitmap(Attack7, attx, atty, null);
-                } else if (button_pressed_count < 40) {
+                } else if (attack_button_pressed_count < 40) {
                     canvas.drawBitmap(Attack8, attx, atty, null);
-                } else if (button_pressed_count == 40) {
+                } else if (attack_button_pressed_count == 40) {
                     canvas.drawBitmap(Attack1, attx, atty, null);
-                    button_pressed_count = 0;
+                    attack_button_pressed_count = 0;
                 }
-                button_pressed_count += 1;
+                attack_button_pressed_count += 1;
             }
 
             //-----------------------------------------------------
@@ -382,7 +392,18 @@ class GameView extends SurfaceView implements Runnable {
             //------------------------------------
 
             // Draws NPC enemies
-            if(x2 + entityWidth < 1080 - wallWidth && enemy2Direction) {
+
+            //enemy 2
+            if(x2 > 3000) {
+                if(x2 <= 3010) {
+                    x2 = 600;
+                    y2 = 600;
+                } else {
+                    while(x2 > 3000) {
+                        x2 -= 10;
+                    }
+                }
+            } else if(x2 + entityWidth < 1080 - wallWidth && enemy2Direction) {
                 x2 += 5;
             } else {
                 enemy2Direction = false;
@@ -393,7 +414,17 @@ class GameView extends SurfaceView implements Runnable {
                 }
             }
 
-            if(x3 + entityWidth < 1080 - wallWidth && enemy3Direction) {
+            // enemy 3
+            if(x3 > 3000) {
+                if (x3 <= 3010) {
+                    x3 = 100;
+                    y3 = 1300;
+                } else {
+                    while (x3 > 3000) {
+                        x3 -= 10;
+                    }
+                }
+            } else if(x3 + entityWidth < 1080 - wallWidth && enemy3Direction) {
                 x3 += 5;
             } else {
                 enemy3Direction = false;
@@ -404,7 +435,17 @@ class GameView extends SurfaceView implements Runnable {
                 }
             }
 
-            if(y4 + entityHeight < 1920 - wallHeight && enemy4Direction) {
+            //enemy 4
+            if(x4 > 3000) {
+                if (x4 <= 3010) {
+                    x4 = 300;
+                    y4 = 1600;
+                } else {
+                    while (x4 > 3000) {
+                        x4 -= 10;
+                    }
+                }
+            } else if(y4 + entityHeight < 1920 - wallHeight && enemy4Direction) {
                 y4 += 5;
             } else {
                 enemy4Direction = false;
@@ -415,7 +456,17 @@ class GameView extends SurfaceView implements Runnable {
                 }
             }
 
-            if(y5 + entityHeight < 1920 - wallHeight && enemy5Direction) {
+            // enemy 5
+            if(x5 > 3000) {
+                if (x5 <= 3010) {
+                    x5 = 700;
+                    y5 = 500;
+                } else {
+                    while (x5 > 3000) {
+                        x5 -= 10;
+                    }
+                }
+            } else if(y5 + entityHeight < 1920 - wallHeight && enemy5Direction) {
                 y5 += 5;
             } else {
                 enemy5Direction = false;
@@ -426,8 +477,17 @@ class GameView extends SurfaceView implements Runnable {
                 }
             }
 
-            // The diagonal enemy (enemy6) behavior
-            if(x6 + entityWidth < 1080 - wallWidth && enemy6xDirection) {
+            // enemy 6
+            if(x6 > 3000) {
+                if (x6 <= 3010) {
+                    x6 = 800;
+                    y6 = 1800;
+                } else {
+                    while (x6 > 3000) {
+                        x6 -= 10;
+                    }
+                }
+            } else if(x6 + entityWidth < 1080 - wallWidth && enemy6xDirection) {
                 x6 += 3;
             } else {
                 enemy6xDirection = false;
@@ -448,8 +508,17 @@ class GameView extends SurfaceView implements Runnable {
                 }
             }
 
-            // The "hunter" (seeking behavior) enemy
-            if(x7 < x && y7 < y) {
+            // enemy 7 (seeker)
+            if(x7 > 3000) {
+                if (x7 <= 3010) {
+                    x7 = 800;
+                    y7 = 1700;
+                } else {
+                    while (x7 > 3000) {
+                        x7 -= 10;
+                    }
+                }
+            } else if(x7 < x && y7 < y) {
                 x7 += 2;
                 y7 += 2;
             } else if(x7 < x && y7 > y) {
@@ -478,7 +547,24 @@ class GameView extends SurfaceView implements Runnable {
             canvas.drawBitmap(Enemy, x6, y6, null);
             canvas.drawBitmap(Enemy, x7, y7, null);
 
-//            if gameView.health
+            //-----------------------------------------------------------
+
+            //enemy/player_attack collision detection (enemy death)
+            if(button_attack_pressed) {
+                if((attx + entityWidth > x2 && attx < x2 + entityWidth) && (atty + entityHeight > y2 && y < y2 + entityHeight)) {
+                    x2 = 4000;
+                } else if((attx + entityWidth > x3 && attx < x3 + entityWidth) && (atty + entityHeight > y3 && atty < y3 + entityHeight)) {
+                    x3 = 4000;
+                } else if((attx + entityWidth > x4 && attx < x4 + entityWidth) && (atty + entityHeight > y4 && atty < y4 + entityHeight)) {
+                    x4 = 4000;
+                } else if((attx + entityWidth > x5 && attx < x5 + entityWidth) && (atty + entityHeight > y5 && atty < y5 + entityHeight)) {
+                    x5 = 4000;
+                } else if((attx + entityWidth > x6 && attx < x6 + entityWidth) && (atty + entityHeight > y6 && atty < y6 + entityHeight)) {
+                    x6 = 4000;
+                } else if((attx + entityWidth > x7 && attx < x7 + entityWidth) && (atty + entityHeight > y7 && atty < y7 + entityHeight)) {
+                    x7 = 4000;
+                }
+            }
 
             //--------------------------------------------------------------
 
@@ -552,14 +638,15 @@ class GameView extends SurfaceView implements Runnable {
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
-    public void pause(){
-        running = false;
-        while(true){
-            try{
-                gameThread.join();
-                return;
-            } catch (InterruptedException e){
-            }
-        }
-    }
+//    public void pause(){
+//        running = false;
+//        while(true){
+//            try{
+//                gameThread.join();
+//                return;
+//            } catch (InterruptedException e){
+//            }
+//        }
+
+
 }
