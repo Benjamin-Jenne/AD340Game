@@ -17,16 +17,6 @@
     android:layout_margin="@dimen/game_relative_layout_margin"
     tools:context=".GameActivity">
 
-<!--    Indeterminate for no known end time-->
-<!--    <ProgressBar-->
-<!--        android:id="@+id/indeterminateHealthBar"-->
-<!--        style="@android:style/Widget.ProgressBar.Horizontal"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        />-->
-
-<!--    Determinate bar with set progress. -->
-
     <TextView
         android:id="@+id/textViewHealth"
         android:layout_width="wrap_content"
@@ -43,17 +33,24 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewHealth"
         android:layout_marginStart="@dimen/det_bar_margin_start"
-        android:progress="100"/>
+        android:progress="@string/one_hundred"/>
 
-    <TextView
-        android:id="@+id/textViewAttachedText"
+    <Chronometer
+        android:id="@+id/chronometerTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewHealth"
-        android:layout_toEndOf="@id/determinateBar"
-        android:layout_marginStart="@dimen/doh_text_margin_start"
-        android:textColor="@color/red"
-        android:text="" />
+        android:layout_below="@id/determinateBar"
+        android:layout_alignStart="@id/determinateBar"
+        android:textStyle="bold"/>
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewAttachedText"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:layout_marginStart="@dimen/doh_text_margin_start"-->
+<!--        android:textColor="@color/red"-->
+<!--        android:text="" />-->
 
     <TextView
         android:id="@+id/textViewScore"
@@ -61,10 +58,8 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="@dimen/score_text_size"
-        android:layout_toEndOf="@id/determinateBar"
         android:layout_marginLeft="@dimen/score_text_margin_left"
-        android:text="@string/score"
-        />
+        android:text="@string/score" />
 
     <TextView
         android:id="@+id/textViewScoreAmount"
@@ -73,9 +68,34 @@
         android:textStyle="bold"
         android:textSize="@dimen/score_text_size"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/textViewScore"
-        android:layout_toStartOf="@id/textViewScore"
-        />
+        android:layout_toEndOf="@id/textViewScore" />
+
+    <TextView
+        android:id="@+id/textViewGameOver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/game_over"
+        android:textColor="@color/red"
+        android:textStyle="italic"
+        android:textSize="@dimen/forty"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/buttonRestart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/ten"
+        android:layout_marginTop="@dimen/ten"
+        android:text="@string/restart"
+        android:textSize="@dimen/twenty"
+        android:layout_below="@id/textViewGameOver"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:onClick="restartGame"/>
+
 
     <Button
         android:id="@+id/buttonLeft"

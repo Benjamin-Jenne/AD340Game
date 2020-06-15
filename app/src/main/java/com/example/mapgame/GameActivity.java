@@ -24,8 +24,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button button_down;
     private Button button_up;
 
-    private ProgressBar health_bar;
-    private TextView    attackedText;
+    private Button button_restart;
 
     private TextView score;
     private TextView scoreAmount;
@@ -33,7 +32,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private GameFragment gameFragment;
 
     private int move = 20;
-    private int health;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -47,9 +45,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         button_down = findViewById(R.id.buttonDown);
         button_up = findViewById(R.id.buttonUp);
 
-        // For now health bar is hooked up to attack button.
-        health_bar   = findViewById(R.id.determinateBar);
-        attackedText = findViewById(R.id.textViewAttachedText);
+        button_restart = findViewById(R.id.buttonRestart);
 
         score = findViewById(R.id.textViewScore);
         scoreAmount = findViewById(R.id.textViewScoreAmount);
@@ -149,15 +145,25 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-//        if(gameFragment.gameView.takingDamage) {
-//            health = health_bar.getProgress();
-//            health_bar.setProgress(health - 5);
-//        }
+
+    }
+
+    public void restartGame() {
+        gameFragment.gameView.resume();
     }
 
 
+    // On restart click, restart the game
     @Override
     public void onClick(View v) {
+
+
+        if (v.getId() == R.id.buttonRestart) {
+//            gameFragment.setButtonEvent( new ButtonEvent("Button Restart Pressed"));
+//            onRestart();
+            Log.i(TAG, "button press");
+//            finish();
+        }
 //        if(v.getId() == R.id.buttonAttack){
 //
 //            int num = (int) (Math.random()*255);
@@ -174,11 +180,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //            else {
 //                attackedText.setText(R.string.doh);
 //            }
-//
-//
 //            Log.i(TAG, "Attack Button Was Clicked");
 //            gameFragment.setButtonEvent( new ButtonEvent("Attack Button Clicked"));
 //        }
+    }
+
+    public void restartGame(View view) {
+//        gameFragment.gameView.resume();
+        finish();
+//        onRestart();
     }
 
     public class ButtonEvent {
@@ -186,5 +196,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         public ButtonEvent(String buttonEventString){
             this.buttonEventString = buttonEventString;
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(TAG, "onRestart()");
     }
 }
