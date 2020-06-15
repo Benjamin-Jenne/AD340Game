@@ -30,8 +30,8 @@ public class GameActivityTest {
 
     @Test
     public void testGameActivity() throws InterruptedException {
-        MainActivityTest main = new MainActivityTest();
-        main.testClickPlay();
+
+        pressPlay();
 
         checkViews();
 
@@ -49,10 +49,32 @@ public class GameActivityTest {
 
         gameOver();
 
-//        Thread.sleep(5000);
-//        attacked();
     }
 
+    @Test
+    public void testItemScore() {
+        pressPlay();
+        downClickSingle();
+        rightClick();
+        onView(withId(R.id.textViewScoreAmount)).check(matches(withText(R.string.fifty)));
+
+    }
+
+    @Test
+    public void testEnemyScore() throws InterruptedException {
+        pressPlay();
+        downClickSingle();
+        Thread.sleep(3000);
+        attackClick();
+        onView(withId(R.id.textViewScoreAmount)).check(matches(withText(R.string.one_hundred)));
+    }
+
+
+
+    public void pressPlay() {
+        MainActivityTest main = new MainActivityTest();
+        main.testClickPlay();
+    }
 
     // Check game activity views are present
     public void checkViews() {
@@ -60,6 +82,8 @@ public class GameActivityTest {
         onView(withId(R.id.determinateBar))
                 .check(matches(isDisplayed()));
         onView(withId(R.id.chronometerTimer)).check(matches(isDisplayed()));
+        onView(withId(R.id.textViewScore)).check(matches(withText(R.string.score)));
+        onView(withId(R.id.textViewScoreAmount)).check(matches(isDisplayed()));
     }
 
     // Click attack button
@@ -95,6 +119,9 @@ public class GameActivityTest {
         onView(withId(R.id.buttonDown)).perform(ViewActions.longClick());
         onView(withId(R.id.buttonDown)).perform(ViewActions.longClick());
         onView(withId(R.id.buttonDown)).perform(ViewActions.longClick());
+        onView(withId(R.id.buttonDown)).perform(ViewActions.longClick());
+    }
+    public void downClickSingle() {
         onView(withId(R.id.buttonDown)).perform(ViewActions.longClick());
     }
 
