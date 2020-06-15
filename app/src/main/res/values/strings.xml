@@ -19,4 +19,6 @@
     <string name="doh">Doh!</string>
     <string name="score">Score:</string>
     <string name="one_hundred">100</string>
+    <string name="restart">Restart</string>
+    <string name="game_over">Game Over</string>
 </resources>

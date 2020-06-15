@@ -8,5 +8,8 @@
     <dimen name="game_relative_layout_margin">10dp</dimen>
     <dimen name="det_bar_margin_start">30dp</dimen>
     <dimen name="health_text_margin_start">30dp</dimen>
-    <dimen name="score_text_margin_left">120dp</dimen>
+    <dimen name="score_text_margin_left">250dp</dimen>
+    <dimen name="ten">10dp</dimen>
+    <dimen name="twenty">20dp</dimen>
+    <dimen name="forty">40dp</dimen>
 </resources>

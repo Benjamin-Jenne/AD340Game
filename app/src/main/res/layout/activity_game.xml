@@ -68,9 +68,34 @@
         android:textStyle="bold"
         android:textSize="@dimen/score_text_size"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/textViewScore"
-        android:layout_toStartOf="@id/textViewScore"
-        />
+        android:layout_toEndOf="@id/textViewScore" />
+
+    <TextView
+        android:id="@+id/textViewGameOver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/game_over"
+        android:textColor="@color/red"
+        android:textStyle="italic"
+        android:textSize="@dimen/forty"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/buttonRestart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/ten"
+        android:layout_marginTop="@dimen/ten"
+        android:text="@string/restart"
+        android:textSize="@dimen/twenty"
+        android:layout_below="@id/textViewGameOver"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:onClick="restartGame"/>
+
 
     <Button
         android:id="@+id/buttonLeft"

@@ -24,6 +24,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button button_down;
     private Button button_up;
 
+    private Button button_restart;
+
     private TextView score;
     private TextView scoreAmount;
 
@@ -42,6 +44,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         button_right = findViewById(R.id.buttonRight);
         button_down = findViewById(R.id.buttonDown);
         button_up = findViewById(R.id.buttonUp);
+
+        button_restart = findViewById(R.id.buttonRestart);
 
         score = findViewById(R.id.textViewScore);
         scoreAmount = findViewById(R.id.textViewScoreAmount);
@@ -141,15 +145,25 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-//        if(gameFragment.gameView.takingDamage) {
-//            health = health_bar.getProgress();
-//            health_bar.setProgress(health - 5);
-//        }
+
+    }
+
+    public void restartGame() {
+        gameFragment.gameView.resume();
     }
 
 
+    // On restart click, restart the game
     @Override
     public void onClick(View v) {
+
+
+        if (v.getId() == R.id.buttonRestart) {
+//            gameFragment.setButtonEvent( new ButtonEvent("Button Restart Pressed"));
+//            onRestart();
+            Log.i(TAG, "button press");
+//            finish();
+        }
 //        if(v.getId() == R.id.buttonAttack){
 //
 //            int num = (int) (Math.random()*255);
@@ -171,10 +185,22 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //        }
     }
 
+    public void restartGame(View view) {
+//        gameFragment.gameView.resume();
+        finish();
+//        onRestart();
+    }
+
     public class ButtonEvent {
         public String buttonEventString;
         public ButtonEvent(String buttonEventString){
             this.buttonEventString = buttonEventString;
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(TAG, "onRestart()");
     }
 }

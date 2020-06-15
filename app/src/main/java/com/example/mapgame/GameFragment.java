@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,6 +15,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -25,21 +27,38 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mapgame.entities.HealthBarListener;
 
+//import static com.example.mapgame.GameFragment.runOnUiThread;
+
 public class GameFragment extends Fragment implements HealthBarListener{
     private GameActivity.ButtonEvent buttonEvent;
     GameView gameView;
     ProgressBar healthBar;
     Chronometer timer;
 
+    TextView gameOver;
+    Button   restart;
+
+    TextView score;
+
     int healthLevel;
+    int scoreLevel;
 
     private static final String TAG = GameFragment.class.getSimpleName();
+
+//    public static void runOnUiThread(Runnable in_run) {
+//        in_run.run();
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState){
         healthBar = getActivity().findViewById(R.id.determinateBar);
         timer     = getActivity().findViewById(R.id.chronometerTimer);
         timer.start();
+
+        score     = getActivity().findViewById(R.id.textViewScoreAmount);
+
+        gameOver  = getActivity().findViewById(R.id.textViewGameOver);
+        restart   = getActivity().findViewById(R.id.buttonRestart);
 
         gameView = new GameView(getActivity());
         gameView.setCallback(this);
@@ -58,7 +77,7 @@ public class GameFragment extends Fragment implements HealthBarListener{
 
     public void setButtonEvent(GameActivity.ButtonEvent buttonEvent){
         this.buttonEvent = buttonEvent;
-        Log.i(TAG, "inside game frag "+ buttonEvent);
+//        Log.i(TAG, "inside game frag "+ buttonEvent);
     }
 
     // Lower Activity health bar via listener
@@ -67,6 +86,29 @@ public class GameFragment extends Fragment implements HealthBarListener{
         healthLevel = healthBar.getProgress();
         healthBar.setProgress(healthLevel - 1);
     }
+
+    // Errors: only original thread can touch views activity views. ie Ui thread?
+    @Override
+    public void onPlayerKilled() {
+
+        getActivity().runOnUiThread(()-> {
+            gameOver.setVisibility(View.VISIBLE);
+            restart.setVisibility(View.VISIBLE);
+            timer.stop();
+        });
+    }
+
+    @Override
+    public void onScore() {
+        getActivity().runOnUiThread(()-> {
+            score.setText(""+scoreLevel);
+            scoreLevel = scoreLevel + 10;
+        });
+
+    }
+
+
+
 }
 //Game Loop credit:
 //Zechner, Mario. Beginning Android Games . Apress. Kindle Edition.
@@ -76,7 +118,7 @@ class GameView extends SurfaceView implements Runnable{
     SurfaceHolder surfaceHolder;
     volatile boolean running = false;
 
-    private HealthBarListener mCallback;
+    private static HealthBarListener mCallback;
 
     // Player starting position, other stats
     int x = 200;
@@ -189,6 +231,9 @@ class GameView extends SurfaceView implements Runnable{
     boolean button_right_pressed = false;
     boolean button_attack_pressed = false;
 
+    // Restart button
+    boolean button_restart_pressed = false;
+
     int button_pressed_count = 0;
     int attack_button_pressed_count = 0;
 
@@ -223,26 +268,29 @@ class GameView extends SurfaceView implements Runnable{
 
             //------------------------------------------
 
+            // Score
+            mCallback.onScore();
+
             // Draws the player sprite
             if(button_up_pressed){
                 if(y > wallHeight*2) {
-                    if (button_pressed_count < 10) {
+                    if (button_pressed_count < 1) {
                         canvas.drawBitmap(PlayerMove1, x, y, null);
-                    } else if (button_pressed_count < 20) {
+                    } else if (button_pressed_count < 2) {
                         canvas.drawBitmap(PlayerMove2, x, y, null);
-                    } else if (button_pressed_count < 30) {
+                    } else if (button_pressed_count < 3) {
                         canvas.drawBitmap(PlayerMove3, x, y, null);
-                    } else if (button_pressed_count < 40) {
+                    } else if (button_pressed_count < 4) {
                         canvas.drawBitmap(PlayerMove4, x, y, null);
-                    } else if (button_pressed_count < 50) {
+                    } else if (button_pressed_count < 5) {
                         canvas.drawBitmap(PlayerMove5, x, y, null);
-                    } else if (button_pressed_count < 60) {
+                    } else if (button_pressed_count < 6) {
                         canvas.drawBitmap(PlayerMove4, x, y, null);
-                    } else if (button_pressed_count < 70) {
+                    } else if (button_pressed_count < 7) {
                         canvas.drawBitmap(PlayerMove3, x, y, null);
-                    } else if (button_pressed_count < 80) {
+                    } else if (button_pressed_count < 8) {
                         canvas.drawBitmap(PlayerMove2, x, y, null);
-                    } else if (button_pressed_count == 80) {
+                    } else if (button_pressed_count == 8) {
                         canvas.drawBitmap(PlayerMove1, x, y, null);
                         button_pressed_count = 0;
                     }
@@ -253,25 +301,26 @@ class GameView extends SurfaceView implements Runnable{
                     canvas.drawBitmap(PlayerStill, x, y, null);
                 }
             }
+
             else if(button_down_pressed){
                 if(y + entityHeight< 1920) {
-                    if (button_pressed_count < 10) {
+                    if (button_pressed_count < 1) {
                         canvas.drawBitmap(PlayerMove1, x, y, null);
-                    } else if (button_pressed_count < 20) {
+                    } else if (button_pressed_count < 2) {
                         canvas.drawBitmap(PlayerMove2, x, y, null);
-                    } else if (button_pressed_count < 30) {
+                    } else if (button_pressed_count < 3) {
                         canvas.drawBitmap(PlayerMove3, x, y, null);
-                    } else if (button_pressed_count < 40) {
+                    } else if (button_pressed_count < 4) {
                         canvas.drawBitmap(PlayerMove4, x, y, null);
-                    } else if (button_pressed_count < 50) {
+                    } else if (button_pressed_count < 5) {
                         canvas.drawBitmap(PlayerMove5, x, y, null);
-                    } else if (button_pressed_count < 60) {
+                    } else if (button_pressed_count < 6) {
                         canvas.drawBitmap(PlayerMove4, x, y, null);
-                    } else if (button_pressed_count < 70) {
+                    } else if (button_pressed_count < 7) {
                         canvas.drawBitmap(PlayerMove3, x, y, null);
-                    } else if (button_pressed_count < 80) {
+                    } else if (button_pressed_count < 8) {
                         canvas.drawBitmap(PlayerMove2, x, y, null);
-                    } else if (button_pressed_count == 80) {
+                    } else if (button_pressed_count == 8) {
                         canvas.drawBitmap(PlayerMove1, x, y, null);
                         button_pressed_count = 0;
                     }
@@ -284,23 +333,23 @@ class GameView extends SurfaceView implements Runnable{
             }
             else if(button_left_pressed){
                 if(x > wallWidth) {
-                    if (button_pressed_count < 10) {
+                    if (button_pressed_count < 1) {
                         canvas.drawBitmap(PlayerMove1, x, y, null);
-                    } else if (button_pressed_count < 20) {
+                    } else if (button_pressed_count < 2) {
                         canvas.drawBitmap(PlayerMove2, x, y, null);
-                    } else if (button_pressed_count < 30) {
+                    } else if (button_pressed_count < 3) {
                         canvas.drawBitmap(PlayerMove3, x, y, null);
-                    } else if (button_pressed_count < 40) {
+                    } else if (button_pressed_count < 4) {
                         canvas.drawBitmap(PlayerMove4, x, y, null);
-                    } else if (button_pressed_count < 50) {
+                    } else if (button_pressed_count < 5) {
                         canvas.drawBitmap(PlayerMove5, x, y, null);
-                    } else if (button_pressed_count < 60) {
+                    } else if (button_pressed_count < 6) {
                         canvas.drawBitmap(PlayerMove4, x, y, null);
-                    } else if (button_pressed_count < 70) {
+                    } else if (button_pressed_count < 7) {
                         canvas.drawBitmap(PlayerMove3, x, y, null);
-                    } else if (button_pressed_count < 80) {
+                    } else if (button_pressed_count < 8) {
                         canvas.drawBitmap(PlayerMove2, x, y, null);
-                    } else if (button_pressed_count == 80) {
+                    } else if (button_pressed_count == 8) {
                         canvas.drawBitmap(PlayerMove1, x, y, null);
                         button_pressed_count = 0;
                     }
@@ -313,23 +362,23 @@ class GameView extends SurfaceView implements Runnable{
             }
             else if(button_right_pressed){
                 if(x + entityWidth < 1020) {
-                    if (button_pressed_count < 10) {
+                    if (button_pressed_count < 1) {
                         canvas.drawBitmap(PlayerMove1, x, y, null);
-                    } else if (button_pressed_count < 20) {
+                    } else if (button_pressed_count < 2) {
                         canvas.drawBitmap(PlayerMove2, x, y, null);
-                    } else if (button_pressed_count < 30) {
+                    } else if (button_pressed_count < 3) {
                         canvas.drawBitmap(PlayerMove3, x, y, null);
-                    } else if (button_pressed_count < 40) {
+                    } else if (button_pressed_count < 4) {
                         canvas.drawBitmap(PlayerMove4, x, y, null);
-                    } else if (button_pressed_count < 50) {
+                    } else if (button_pressed_count < 5) {
                         canvas.drawBitmap(PlayerMove5, x, y, null);
-                    } else if (button_pressed_count < 60) {
+                    } else if (button_pressed_count < 6) {
                         canvas.drawBitmap(PlayerMove4, x, y, null);
-                    } else if (button_pressed_count < 70) {
+                    } else if (button_pressed_count < 7) {
                         canvas.drawBitmap(PlayerMove3, x, y, null);
-                    } else if (button_pressed_count < 80) {
+                    } else if (button_pressed_count < 8) {
                         canvas.drawBitmap(PlayerMove2, x, y, null);
-                    } else if (button_pressed_count == 80) {
+                    } else if (button_pressed_count == 8) {
                         canvas.drawBitmap(PlayerMove1, x, y, null);
                         button_pressed_count = 0;
                     }
@@ -364,23 +413,23 @@ class GameView extends SurfaceView implements Runnable{
                 }
 
                 // Attack button animation
-                if (attack_button_pressed_count < 10) {
+                if (attack_button_pressed_count < 1) {
                     canvas.drawBitmap(Attack1, attx, atty, null);
-                } else if (attack_button_pressed_count < 20) {
+                } else if (attack_button_pressed_count < 2) {
                     canvas.drawBitmap(Attack2, attx, atty, null);
-                } else if (attack_button_pressed_count < 30) {
+                } else if (attack_button_pressed_count < 3) {
                     canvas.drawBitmap(Attack3, attx, atty, null);
-                } else if (attack_button_pressed_count < 40) {
+                } else if (attack_button_pressed_count < 4) {
                     canvas.drawBitmap(Attack4, attx, atty, null);
-                } else if (attack_button_pressed_count < 50) {
+                } else if (attack_button_pressed_count < 5) {
                     canvas.drawBitmap(Attack5, attx, atty, null);
-                } else if (attack_button_pressed_count < 60) {
+                } else if (attack_button_pressed_count < 6) {
                     canvas.drawBitmap(Attack6, attx, atty, null);
-                } else if (attack_button_pressed_count < 70) {
+                } else if (attack_button_pressed_count < 7) {
                     canvas.drawBitmap(Attack7, attx, atty, null);
-                } else if (attack_button_pressed_count < 80) {
+                } else if (attack_button_pressed_count < 8) {
                     canvas.drawBitmap(Attack8, attx, atty, null);
-                } else if (attack_button_pressed_count == 80) {
+                } else if (attack_button_pressed_count == 8) {
                     canvas.drawBitmap(Attack1, attx, atty, null);
                     attack_button_pressed_count = 0;
                 }
@@ -531,42 +580,13 @@ class GameView extends SurfaceView implements Runnable{
                 // Call listener
                 mCallback.onPlayerAttacked();
             }
-
-
-            // Display health
-
-//            if(health == 1200) {
-//                canvas.drawBitmap(Health12, 200, 300, null);
-//            } else if(health >= 1100 && health < 1200) {
-//                canvas.drawBitmap(Health11, 200, 300, null);
-//            } else if(health >= 1000 && health < 1100) {
-//                canvas.drawBitmap(Health10, 200, 300, null);
-//            } else if(health >= 900 && health < 1000) {
-//                canvas.drawBitmap(Health9, 200, 300, null);
-//            } else if(health >= 800 && health < 900) {
-//                canvas.drawBitmap(Health8, 200, 300, null);
-//            } else if(health >= 700 && health < 800) {
-//                canvas.drawBitmap(Health7, 200, 300, null);
-//            } else if(health >= 600 && health < 700) {
-//                canvas.drawBitmap(Health6, 200, 300, null);
-//            } else if(health >= 500 && health < 600) {
-//                canvas.drawBitmap(Health5, 200, 300, null);
-//            } else if(health >= 400 && health < 500) {
-//                canvas.drawBitmap(Health4, 200, 300, null);
-//            } else if(health >= 300 && health < 400) {
-//                canvas.drawBitmap(Health3, 200, 300, null);
-//            } else if(health >= 200 && health < 300) {
-//                canvas.drawBitmap(Health2, 200, 300, null);
-//            } else if(health >= 100 && health < 200) {
-//                canvas.drawBitmap(Health1, 200, 300, null);
-//            } else if(health >= 1 && health < 100) {
-//                canvas.drawBitmap(Health1, 200, 300, null);
-//            }
-
             takingDamage = false;
 
+
+            // If player dies
             if(health < 1) {
-                canvas.drawBitmap(GameOver, 160, 700, null);
+//                canvas.drawBitmap(GameOver, 160, 700, null);
+                mCallback.onPlayerKilled();
                 running = false;
             }
 
@@ -583,6 +603,7 @@ class GameView extends SurfaceView implements Runnable{
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
+
     public void pause(){
         running = false;
         while(true){
