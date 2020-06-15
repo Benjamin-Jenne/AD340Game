@@ -21,17 +21,15 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class GameActivityTest {
 
     private static final String TAG = GameActivityTest.class.getSimpleName();
-//    private UiDevice mDevice;
-//    private static final String BASIC_SAMPLE_PACKAGE
-//            = "com.example.mapgame";
+
     @Rule
     public ActivityTestRule<MainActivity> activityTestRule
             = new ActivityTestRule<>(MainActivity.class);
 
     @Test
     public void testGameActivity() throws InterruptedException {
-        MainActivityTest main = new MainActivityTest();
-        main.testClickPlay();
+
+        pressPlay();
 
         checkViews();
 
@@ -49,10 +47,60 @@ public class GameActivityTest {
 
         gameOver();
 
-//        Thread.sleep(5000);
-//        attacked();
     }
 
+    @Test
+    public void testItemScore() {
+        pressPlay();
+        downClickSingle();
+        rightClick();
+        onView(withId(R.id.textViewScoreAmount)).check(matches(withText(R.string.fifty)));
+    }
+
+    @Test
+    public void itemCollect() {
+        pressPlay();
+        rightClick();
+        rightClickSingle();
+        downClick();
+        leftClick();
+        rightClickSingle();
+        upClick();
+        leftClickSingle();
+        downClickSingle();
+    }
+
+    @Test
+    public void testEnemyScore() throws InterruptedException {
+        pressPlay();
+        downClickSingle();
+        Thread.sleep(3000);
+        attackClick();
+        onView(withId(R.id.textViewScoreAmount)).check(matches(withText(R.string.one_hundred)));
+    }
+
+    @Test
+    public void killEnemy() throws InterruptedException {
+        pressPlay();
+        Thread.sleep(3000);
+        downClickSingle();
+        attackClick();
+        downClickSingle();
+        attackClick();
+        downClickSingle();
+        downClickSingle();
+        attackClick();
+        rightClickSingleTap();
+        attackClick();
+
+    }
+
+
+
+    public void pressPlay() {
+        MainActivityTest main = new MainActivityTest();
+        main.testClickPlay();
+    }
 
     // Check game activity views are present
     public void checkViews() {
@@ -60,6 +108,8 @@ public class GameActivityTest {
         onView(withId(R.id.determinateBar))
                 .check(matches(isDisplayed()));
         onView(withId(R.id.chronometerTimer)).check(matches(isDisplayed()));
+        onView(withId(R.id.textViewScore)).check(matches(withText(R.string.score)));
+        onView(withId(R.id.textViewScoreAmount)).check(matches(isDisplayed()));
     }
 
     // Click attack button
@@ -97,6 +147,21 @@ public class GameActivityTest {
         onView(withId(R.id.buttonDown)).perform(ViewActions.longClick());
         onView(withId(R.id.buttonDown)).perform(ViewActions.longClick());
     }
+    public void downClickSingle() {
+        onView(withId(R.id.buttonDown)).perform(ViewActions.longClick());
+    }
+    public void rightClickSingle() {
+        onView(withId(R.id.buttonRight)).perform(ViewActions.longClick());
+    }
+    public void rightClickSingleTap() {
+        onView(withId(R.id.buttonRight)).perform(click());
+    }
+    public void upClickSingle() {
+        onView(withId(R.id.buttonUp)).perform(ViewActions.longClick());
+    }
+    public void leftClickSingle() {
+        onView(withId(R.id.buttonLeft)).perform(ViewActions.longClick());
+    }
 
     // Observe decrease in progress bar
     public void attacked() {
@@ -105,9 +170,6 @@ public class GameActivityTest {
 
     // Click Restart button
     public void gameOver() throws InterruptedException {
-
-//        onView(withId(R.id.determinateBar))
-//                .check(matches(isDisplayed()));
 
         Thread.sleep(30000);
 

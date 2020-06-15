@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class GameActivity extends AppCompatActivity implements View.OnClickListener{
+public class GameActivity extends AppCompatActivity{
 
     private static final String TAG = GameActivity.class.getSimpleName();
 
@@ -49,14 +49,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         score = findViewById(R.id.textViewScore);
         scoreAmount = findViewById(R.id.textViewScoreAmount);
-
-
-
-
-        button_attack.setOnClickListener(this);
-
-
-
+        
         //Creating Game Fragment
         gameFragment = new GameFragment();
         FragmentManager manager = getSupportFragmentManager();
@@ -145,50 +138,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-
     }
-
-    public void restartGame() {
-        gameFragment.gameView.resume();
-    }
-
 
     // On restart click, restart the game
-    @Override
-    public void onClick(View v) {
-
-
-        if (v.getId() == R.id.buttonRestart) {
-//            gameFragment.setButtonEvent( new ButtonEvent("Button Restart Pressed"));
-//            onRestart();
-            Log.i(TAG, "button press");
-//            finish();
-        }
-//        if(v.getId() == R.id.buttonAttack){
-//
-//            int num = (int) (Math.random()*255);
-//            gameFragment.gameView.myPaint.setColor(Color.rgb(0, 0, num));
-//
-//
-//            health = health_bar.getProgress();
-//            health_bar.setProgress(health - 5);
-//
-//
-//            if(attackedText.getText().equals("Doh!")) {
-//                attackedText.setText("");
-//            }
-//            else {
-//                attackedText.setText(R.string.doh);
-//            }
-//            Log.i(TAG, "Attack Button Was Clicked");
-//            gameFragment.setButtonEvent( new ButtonEvent("Attack Button Clicked"));
-//        }
-    }
-
     public void restartGame(View view) {
-//        gameFragment.gameView.resume();
         finish();
-//        onRestart();
     }
 
     public class ButtonEvent {
@@ -196,11 +150,5 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         public ButtonEvent(String buttonEventString){
             this.buttonEventString = buttonEventString;
         }
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.i(TAG, "onRestart()");
     }
 }
