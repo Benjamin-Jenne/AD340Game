@@ -21,9 +21,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class GameActivityTest {
 
     private static final String TAG = GameActivityTest.class.getSimpleName();
-//    private UiDevice mDevice;
-//    private static final String BASIC_SAMPLE_PACKAGE
-//            = "com.example.mapgame";
+
     @Rule
     public ActivityTestRule<MainActivity> activityTestRule
             = new ActivityTestRule<>(MainActivity.class);
@@ -57,7 +55,19 @@ public class GameActivityTest {
         downClickSingle();
         rightClick();
         onView(withId(R.id.textViewScoreAmount)).check(matches(withText(R.string.fifty)));
+    }
 
+    @Test
+    public void itemCollect() {
+        pressPlay();
+        rightClick();
+        rightClickSingle();
+        downClick();
+        leftClick();
+        rightClickSingle();
+        upClick();
+        leftClickSingle();
+        downClickSingle();
     }
 
     @Test
@@ -67,6 +77,22 @@ public class GameActivityTest {
         Thread.sleep(3000);
         attackClick();
         onView(withId(R.id.textViewScoreAmount)).check(matches(withText(R.string.one_hundred)));
+    }
+
+    @Test
+    public void killEnemy() throws InterruptedException {
+        pressPlay();
+        Thread.sleep(3000);
+        downClickSingle();
+        attackClick();
+        downClickSingle();
+        attackClick();
+        downClickSingle();
+        downClickSingle();
+        attackClick();
+        rightClickSingleTap();
+        attackClick();
+
     }
 
 
@@ -124,6 +150,18 @@ public class GameActivityTest {
     public void downClickSingle() {
         onView(withId(R.id.buttonDown)).perform(ViewActions.longClick());
     }
+    public void rightClickSingle() {
+        onView(withId(R.id.buttonRight)).perform(ViewActions.longClick());
+    }
+    public void rightClickSingleTap() {
+        onView(withId(R.id.buttonRight)).perform(click());
+    }
+    public void upClickSingle() {
+        onView(withId(R.id.buttonUp)).perform(ViewActions.longClick());
+    }
+    public void leftClickSingle() {
+        onView(withId(R.id.buttonLeft)).perform(ViewActions.longClick());
+    }
 
     // Observe decrease in progress bar
     public void attacked() {
@@ -132,9 +170,6 @@ public class GameActivityTest {
 
     // Click Restart button
     public void gameOver() throws InterruptedException {
-
-//        onView(withId(R.id.determinateBar))
-//                .check(matches(isDisplayed()));
 
         Thread.sleep(30000);
 
