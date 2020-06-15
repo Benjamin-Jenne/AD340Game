@@ -3,11 +3,7 @@ package com.example.mapgame;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.uiautomator.By;
-import androidx.test.uiautomator.UiDevice;
-import androidx.test.uiautomator.UiObject;
-import androidx.test.uiautomator.UiObject2;
-import androidx.test.uiautomator.Until;
+
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -42,13 +38,13 @@ public class GameActivityTest {
         rightClick();
         attackClick();
 
-        downClick();
+        upClick();
         attackClick();
 
         leftClick();
         attackClick();
 
-        upClick();
+        downClick();
         attackClick();
 
         gameOver();
@@ -113,7 +109,7 @@ public class GameActivityTest {
 //        onView(withId(R.id.determinateBar))
 //                .check(matches(isDisplayed()));
 
-        Thread.sleep(10000);
+        Thread.sleep(30000);
 
         onView(withId(R.id.textViewGameOver)).check(matches(isDisplayed()));
         onView(withId(R.id.buttonRestart)).check(matches(isDisplayed()));
