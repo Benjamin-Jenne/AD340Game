@@ -1,4 +1,4 @@
-package com.example.mapgame.entities;
+package com.ad340.mapgame.entities;
 
 public interface HealthBarListener {
     void onPlayerAttacked();

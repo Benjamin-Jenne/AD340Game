@@ -1,4 +1,4 @@
-package com.example.mapgame;
+package com.ad340.mapgame;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,25 +7,18 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.example.mapgame.entities.HealthBarListener;
+import com.ad340.mapgame.entities.HealthBarListener;
 
 public class GameFragment extends Fragment implements HealthBarListener{
     private GameActivity.ButtonEvent buttonEvent;
@@ -100,9 +93,9 @@ public class GameFragment extends Fragment implements HealthBarListener{
                 scoreLevel = scoreLevel + 100;
             }
 
-            else if (entity.equals("Coin")) {
-                scoreLevel = scoreLevel + 10;
-            }
+//            else if (entity.equals("Coin")) {
+//                scoreLevel = scoreLevel + 10;
+//            }
 
             else if (entity.equals("Item")) {
                 scoreLevel = scoreLevel + 50;
@@ -121,6 +114,7 @@ public class GameFragment extends Fragment implements HealthBarListener{
 
 
 }
+
 //Game Loop credit:
 //Zechner, Mario. Beginning Android Games . Apress. Kindle Edition.
 class GameView extends SurfaceView implements Runnable{
@@ -179,12 +173,12 @@ class GameView extends SurfaceView implements Runnable{
 
 
     //Enemy respawning timer
-    int enemy2Respawn;
-    int enemy3Respawn;
-    int enemy4Respawn;
-    int enemy5Respawn;
-    int enemy6Respawn;
-    int enemy7Respawn;
+//    int enemy2Respawn;
+//    int enemy3Respawn;
+//    int enemy4Respawn;
+//    int enemy5Respawn;
+//    int enemy6Respawn;
+//    int enemy7Respawn;
 
     boolean enemy2Direction;
     boolean enemy3Direction;
@@ -746,7 +740,7 @@ class GameView extends SurfaceView implements Runnable{
             previous_time = current_time;
             if(screen_update_count == 100){
                 double dTime = (double) delta_time;
-                Log.i("frames per second", Double.toString(-1.0*(1.0 / (dTime / 1000.0))));
+//                Log.i("frames per second", Double.toString(-1.0*(1.0 / (dTime / 1000.0))));
                 screen_update_count = 0;
             }
             screen_update_count += 1;

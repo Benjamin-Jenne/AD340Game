@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">MapGame</string>
     <string name="game_title">Dungeon Run</string>
-    <string name="game_description">A fun game where a player has to navigate some dungeons and fight monsters</string>
-    <string name="game_instructions">Game instructions
+    <string name="game_description">A fun game where a player has to navigate dungeons and fight monsters</string>
+    <string name="game_instructions">Game instructions:
         \n 1) Move around with arrow keys
         \n 2) Collect Resources
         \n 3) Fight Monsters
     </string>
     <string name="play">play</string>
-    <string name="authors">created by David Prismantas, Benjamin Jenne, Max Anderson, and Jack Boyd</string>
+    <string name="authors">Created by David Prismantas, Benjamin Jenne, Max Anderson, and Jack Boyd</string>
     <string name="left">\u2190</string>
     <string name="right">\u2192</string>
     <string name="down">\u2193</string>
@@ -22,4 +22,9 @@
     <string name="restart">Restart</string>
     <string name="game_over">Game Over</string>
     <string name="fifty">50</string>
+    <string name="copyright">Code: Copyright 2020 David Prismantas, Benjamin Jenne, Max Anderson, and Jack Boyd</string>
+    <string name="image_copyright">Images: Copyright 2020 David Prismantas</string>
+    <string name="arial">Arial</string>
+    <string name="thirty_five">35</string>
+    <string name="twenty_five">25</string>
 </resources>

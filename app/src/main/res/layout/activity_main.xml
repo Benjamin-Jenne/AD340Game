@@ -8,44 +8,60 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
 android:padding="10dp"
-android:background="@android:color/white"
+android:background="@color/white"
 tools:context=".MainActivity">
-
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/game_title"
-    android:id="@+id/game_title"
-    android:textSize="65dp"/>
-
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/game_description"
-    android:id="@+id/game_description"
-    android:textSize="35dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/game_title"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        android:id="@+id/game_title"
+        android:textSize="@dimen/sixty_five"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/game_description"
+        android:id="@+id/game_description"
+        android:textSize="@dimen/thirty_five"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ten"
         android:text="@string/game_instructions"
         android:id="@+id/game_instructions"
-        android:textSize="25dp"/>
+        android:textSize="@dimen/twenty_five"/>
 
-<Button
-    android:id="@+id/buttonPlay"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/play"
-    android:layout_marginTop="70dp"
-    android:textSize="140dp"
-    android:layout_gravity="center_horizontal"
-    android:onClick="goToMapActivity" />
+    <Button
+        android:id="@+id/buttonPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play"
+        android:layout_marginTop="@dimen/thirty"
+        android:textSize="@dimen/one_hundred"
+        android:layout_gravity="center_horizontal"
+        android:onClick="goToMapActivity" />
 
-<TextView
-    android:id="@+id/author"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/authors" />
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/twenty"
+        android:text="@string/authors" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ten"
+        android:text="@string/copyright"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/five"
+        android:text="@string/image_copyright"/>
 
 </LinearLayout>
